@@ -1,0 +1,15 @@
+.typing-animation {
+  display: inline;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+  border-right-width: 8px;
+  padding-right: 0.5rem;
+  animation: blink 750ms infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-right: none;
+  }
+}
