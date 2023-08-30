@@ -13,13 +13,13 @@ type ButtonProps = {
   onMouseLeave?: () => void;
   href?: string;
   onClick?: (params?: any) => void;
-} & (Link | Button);
+} & (LinkType | ButtonType);
 
-type Link = {
+type LinkType = {
   type?: "link";
 };
 
-type Button = {
+type ButtonType = {
   type?: "submit" | "button" | "reset";
 };
 

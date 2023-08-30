@@ -18,12 +18,12 @@ const Footer: React.FC<FooterProps> = () => {
         <div className="flex flex-col items-center gap-4" id="contact">
           <h2>Contact Developer @apra-saputra</h2>
           <ul className="flex gap-2 item-center">
-            {CONTACT.map((item, index) => {
+            {CONTACT.map((item) => {
               return (
                 <li
                   className={`flex flex-row items-center gap-2 cursor-pointer hover:text-accent transition-all duration-300`}
                   onClick={() => redirectTo(item.url)}
-                  key={index}
+                  key={item.name}
                 >
                   <img
                     src={item.logo}

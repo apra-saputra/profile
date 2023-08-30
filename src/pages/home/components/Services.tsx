@@ -17,7 +17,7 @@ const Services: React.FC = () => {
     >
       <div className="flex flex-col justify-start items-center w-full md:absolute">
         <div className="w-screen flex flex-col gap-4 bg-primary my-2 py-24">
-          <h1 className="text-4xl font-semibold text-center">
+          <h1 className="font-semibold text-center">
             Type of Service
           </h1>
           <p className="text-center">this is the service that i can do!</p>
