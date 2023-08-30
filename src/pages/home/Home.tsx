@@ -1,17 +1,26 @@
 import React from "react";
 import { TypingAnimation, IntroAnimation } from "@/components/animation";
 import { Button } from "@/components/elements/buttons";
-import { TECH_STACK, PROGRAMINGS } from "@/utils/constants/techstack";
-import web from "@/assets/web.svg";
 import Projects from "./components/Projects";
 import Services from "./components/Services";
+import { TECH_STACK, PROGRAMINGS } from "@/utils/constants/techstack";
+import web from "@/assets/web.svg";
+import titleLogo from "@/assets/Logo.png";
 
 const Home: React.FC = () => {
   return (
     <>
       <section className="h-screen flex justify-center flex-col md:flex-row items-center px-4 max-w-screen-2xl mx-auto">
         <article className="flex flex-col gap-4">
-          <h1 className="font-bold text-6xl">Welcome to Apra Saputra!</h1>
+          <div className="flex flex-col md:flex-row md:items-center">
+            <h1 className="font-bold">Welcome to </h1>
+            <img
+              src={titleLogo}
+              alt="title"
+              width={400}
+              className="aspect-[16/4] object-contain"
+            />
+          </div>
           <h4 className="text-primary">
             <TypingAnimation text="Front End Developer | Back End Developer | Full Stack Developer" />
           </h4>
@@ -43,7 +52,7 @@ const Home: React.FC = () => {
       >
         <div className="flex flex-col justify-between items-center w-full gap-10 relative">
           <div className="w-screen bg-primary my-2 py-24">
-            <h1 className="text-6xl font-semibold text-center">Tech Stack</h1>
+            <h1 className="font-semibold text-center">Tech Stack</h1>
           </div>
           <div className="flex flex-col gap-2 absolute bg-transparent md:-bottom-24 top-48  overflow-hidden">
             <ul className="flex flex-wrap justify-center items-center gap-2">

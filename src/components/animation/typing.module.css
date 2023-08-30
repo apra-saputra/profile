@@ -1,6 +1,6 @@
 .typing-animation {
+  @apply text-xl md:text-2xl;
   display: inline;
-  font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 500;
   border-right-width: 8px;

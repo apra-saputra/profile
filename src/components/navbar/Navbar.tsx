@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useState } from "react";
 import { MENUS } from "@/utils/constants/menu";
+import titleLogo from '@/assets/Logo.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   IconDefinition,
@@ -24,8 +25,8 @@ const Navbar: React.FC = () => {
   return (
     <nav className="w-full shadow transition-all duration-500 bg-secondary">
       <div className="justify-between mx-auto md:items-center md:flex max-w-screen-2xl px-0 md:px-2">
-        <div className="flex justify-between items-center w-full h-full px-3 md:px-0 py-4 md:py-0">
-          <h1 className="text-2xl font-bold">My Profile</h1>
+        <div className="flex justify-between items-center w-full h-full px-2 pl-0 md:px-0 py-4 md:py-0">
+          <img src={titleLogo} alt="title logo" width={200} className="aspect-[16/4] " />
           <div className="md:hidden">
             <Button type="button" onClick={() => setNavbar((state) => !state)}>
               {navbar ? (

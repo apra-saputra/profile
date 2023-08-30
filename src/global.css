@@ -58,6 +58,14 @@ p {
   user-select: text;
 }
 
+h1 {
+  @apply md:text-6xl text-4xl;
+}
+
+p {
+  @apply text-base md:text-lg;
+}
+
 .img-logo {
   @apply aspect-square object-scale-down object-center rounded;
 }
