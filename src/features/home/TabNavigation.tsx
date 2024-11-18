@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import "./styles/tabNavigation.css";
 
 type Menu = {
   title: string;
@@ -19,8 +20,8 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ menu }) => {
 
   return (
     <>
-      <nav className="h-full w-[250px] rounded drop-shadow-lg">
-        <ul className="flex flex-col items-center justify-evenly h-full">
+      <nav className="w-full lg:w-[250px] md:w-full lg:h-full h-[8rem] rounded drop-shadow-lg">
+        <ul className="flex flex-row lg:flex-col md:flex-row w-full h-full items-center justify-evenly px-2 lg:px-0">
           {menu.map((item, index) => (
             <LiComponent
               key={index}
@@ -42,10 +43,10 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ menu }) => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -300, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="rounded bg-primary/90 pt-6 relative mx-24 drop-shadow-lg w-full h-[626px]"
+              className="rounded bg-primary/90 py-6 relative lg:ml-24 ml-0 mx-0 drop-shadow-lg w-full h-full"
             >
               <div className="absolute z-10 left-10 -top-10">
-                <h1 className="text-6xl custom-gradient-linier-1">
+                <h1 className="text-6xl">
                   {item.title}
                 </h1>
               </div>
@@ -68,21 +69,21 @@ interface LiComponentProps {
   onClick?: () => void;
 }
 
-const LiComponent: React.FC<LiComponentProps> = ({
-  children,
-  isActive,
-  onClick,
-}) => {
-  return (
-    <li
-      className={`cursor-pointer h-full w-full flex items-center justify-center transition-all duration-200 ${
-        isActive
-          ? "text-background transfrom scale-110 bg-gradient-to-br from-40% from-primary to-accent"
-          : "text-foreground bg-secondary"
-      }`}
-      onClick={onClick}
-    >
-      <h4 className={"text-inherit"}>{children}</h4>
-    </li>
-  );
-};
+const LiComponent: React.FC<LiComponentProps> = React.memo(
+  ({ children, isActive, onClick }) => {
+    return (
+      <motion.li
+        className={`cursor-pointer h-full w-full flex items-center justify-center transition-all duration-200 ${
+          isActive
+            ? "text-background transfrom scale-110 bg-gradient-to-br from-40% from-primary to-accent"
+            : "text-foreground bg-secondary"
+        }`}
+        onClick={onClick}
+      >
+        <h4 className={"text-inherit underlined-text text-center"} data-isActive={isActive}>
+          {children}
+        </h4>
+      </motion.li>
+    );
+  }
+);

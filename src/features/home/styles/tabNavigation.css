@@ -1,0 +1,22 @@
+.underlined-text {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.underlined-text[data-isActive="false"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px; /* Ketebalan garis bawah */
+  width: 100%;
+  background-color: currentColor; /* Menggunakan warna teks */
+  transform-origin: left; /* Memulai transformasi dari kiri */
+  transform: scaleX(0); /* Memulai efek dari skala 0, artinya tidak terlihat */
+  transition: transform 0.3s ease; /* Durasi dan timing fungsi untuk transisi */
+}
+
+.underlined-text:hover::after {
+  transform: scaleX(1); /* Memperluas garis bawah hingga terlihat penuh */
+}

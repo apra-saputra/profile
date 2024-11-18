@@ -12,7 +12,7 @@ const Footer: React.FC<FooterProps> = () => {
       <div className="h-fit max-w-screen-2xl flex flex-wrap flex-col md:flex-row items-center md:justify-between justify-center mx-auto py-10 px-10 gap-4 md:gap-0">
         <div>
           <span>
-            <strong>copyright </strong>©2023 | Power by React
+            <strong>copyright </strong>©2024 | Power by React
           </span>
         </div>
         <div className="flex flex-col items-center gap-4" id="contact">

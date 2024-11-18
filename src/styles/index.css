@@ -1,11 +1,9 @@
 /* @import './src/styles/font.css'; */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 @layer base {
   /* :root {
@@ -77,7 +75,7 @@
   }
   .dark {
     --background: 200 60% 1%;
-    --foreground: 180 100% 94%;
+    --foreground: 65 100% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
@@ -130,23 +128,24 @@
 @layer base {
   * {
     @apply border-border;
-    
   }
   body {
     @apply text-foreground;
     font-family: "Plus Jakarta Sans";
-    
-    background-image: url('../assets/background-doodle.png');
+    margin: 0;
+    padding: 0;
+
+    background-image: url("../assets/background-doodle.png");
     background-repeat: round;
-    background-position: center; 
+    background-position: center;
     object-fit: fill;
   }
 
   body.dark {
-    background-image: url('../assets/dark-background-doodle.png'); 
+    background-image: url("../assets/dark-background-doodle.png");
   }
 
-  h1,
+  /* h1,
   h2,
   h3,
   h4,
@@ -154,7 +153,7 @@
   h6,
   p {
     color: inherit !important;
-  }
+  } */
 
   h1 {
     @apply text-4xl font-bold;
@@ -169,23 +168,51 @@
     @apply text-lg font-medium;
   }
 
-  .custom-gradient-linier-1 {
-    color: linear-gradient(hsl(188, 55%, 51%), hsl(189, 73%, 72%));
-  }
-  .custom-gradient-linier-2 {
-    color: linear-gradient(hsl(188, 55%, 51%), hsl(241, 69%, 60%));
-  }
-  .custom-gradient-linier-3 {
-    color: linear-gradient(hsl(189, 73%, 72%), hsl(241, 69%, 60%));
+  .custom-gradient-text-1 {
+    background: linear-gradient(hsl(188, 55%, 51%), hsl(189, 73%, 72%));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .custom-gradient-radial-1 {
-    color: radial-gradient(hsl(188, 55%, 51%), hsl(189, 73%, 72%));
+  .custom-gradient-text-2 {
+    background: linear-gradient(hsl(188, 55%, 51%), hsl(241, 69%, 60%));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  .custom-gradient-radial-2 {
-    color: radial-gradient(hsl(188, 55%, 51%), hsl(241, 69%, 60%));
+
+  .custom-gradient-text-3 {
+    background: linear-gradient(hsl(189, 73%, 72%), hsl(241, 69%, 60%));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  .custom-gradient-radial-3 {
-    color: radial-gradient(hsl(189, 73%, 72%), hsl(241, 69%, 60%));
+
+  .custom-gradient-text-radial-1 {
+    background: radial-gradient(hsl(188, 55%, 51%), hsl(189, 73%, 72%));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .custom-gradient-text-radial-2 {
+    background: radial-gradient(hsl(188, 55%, 51%), hsl(241, 69%, 60%));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .custom-gradient-text-radial-3 {
+    background: radial-gradient(hsl(189, 73%, 72%), hsl(241, 69%, 60%));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }

@@ -7,7 +7,7 @@ const ButtonChangeTheme = () => {
 
   return (
     <button
-      className="absolute z-50 left-5 bottom-5 rounded-full border border-accent p-4 hover:bg-foreground bg-accent hover:text-background duration-200 "
+      className="absolute z-50 left-5 bottom-5 rounded-full border border-accent p-4 text-white hover:bg-foreground bg-accent hover:text-background duration-200 "
       onClick={() => toggleTheme()}
     >
       {theme === "light" ? <GoSun /> : <FaRegMoon />}
