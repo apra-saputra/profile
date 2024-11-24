@@ -1,4 +1,5 @@
 import myphoto from "@/assets/12c968d1-79a5-4165-a4d4-f079926392f6.webp";
+import { motion } from "framer-motion";
 
 const AvatarSection = () => {
   const width = "w-60 h-60";
@@ -9,11 +10,13 @@ const AvatarSection = () => {
         className={`${width} rounded-full outline-none ring-offset-primary ring ring-accent/50 ring-offset-4 relative`}
       >
         <div className={`bg-accent absolute ${width} rounded-full -z-10`} />
-        <img
+        <motion.img
           // src="https://media.licdn.com/dms/image/v2/D5603AQHNqvNNXhQq7A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1665380544404?e=1736380800&v=beta&t=90AJVfuOo9Zi3tNhgFXg1RVD5IoO4UPxUADm-4MinUs"
           src={myphoto}
           alt="photo avatar"
           className="rounded-b-full aspect-square w-72 absolute"
+          animate={{ scale: 1, transition: { delay: 0.2 } }}
+          initial={{ scale: 0 }}
         />
         {/* <AvatarFallback>Photo</AvatarFallback> */}
       </div>

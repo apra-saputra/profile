@@ -46,7 +46,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ menu }) => {
               className="rounded bg-primary/90 py-6 relative lg:ml-24 ml-0 mx-0 drop-shadow-lg w-full h-full"
             >
               <div className="absolute z-10 left-10 -top-10">
-                <h1 className="text-6xl">
+                <h1 className="text-6xl text-background outlined-text border-1">
                   {item.title}
                 </h1>
               </div>
@@ -80,7 +80,10 @@ const LiComponent: React.FC<LiComponentProps> = React.memo(
         }`}
         onClick={onClick}
       >
-        <h4 className={"text-inherit underlined-text text-center"} data-isActive={isActive}>
+        <h4
+          className={"text-inherit underlined-text text-center"}
+          data-isActive={isActive}
+        >
           {children}
         </h4>
       </motion.li>
