@@ -9,9 +9,9 @@ import Techstacks from "./Techstacks";
 
 const Home = () => {
   const menu = [
-    { title: "Profile", component: <Profile /> },
-    { title: "Projects", component: <Projects /> },
-    { title: "Tech Stack", component: <Techstacks /> },
+    { title: "Profile", component: <Profile />, tab: "profile" },
+    { title: "Projects", component: <Projects />, tab: "project" },
+    { title: "Tech Stack", component: <Techstacks />, tab: "tect-stack" },
   ];
 
   useDocumentTitle();

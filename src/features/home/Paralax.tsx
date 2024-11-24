@@ -1,12 +1,12 @@
-import { useRef } from "react";
+
 import { Parallax } from "react-scroll-parallax";
 
-const url = (name: string, wrap = false) =>
-  `${
-    wrap ? "url(" : ""
-  }https://awv3node-homepage.surge.sh/build/assets/${name}.svg${
-    wrap ? ")" : ""
-  }`;
+// const url = (name: string, wrap = false) =>
+//   `${
+//     wrap ? "url(" : ""
+//   }https://awv3node-homepage.surge.sh/build/assets/${name}.svg${
+//     wrap ? ")" : ""
+//   }`;
 
 const Paralax = () => {
   return (
