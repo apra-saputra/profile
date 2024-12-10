@@ -2,7 +2,7 @@ import { projects } from "@/features/home/utils/project";
 import {
   CarouselComponent,
   CarouselItemComponent,
-} from "../commons/components/CarouselComponent";
+} from "../commons/components/carousel/CarouselComponent";
 import { Link } from "react-router-dom";
 
 const Projects = () => {
