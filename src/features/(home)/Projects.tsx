@@ -1,4 +1,4 @@
-import { projects } from "@/features/home/utils/project";
+import { projects } from "@/features/(home)/utils/project";
 import {
   CarouselComponent,
   CarouselItemComponent,

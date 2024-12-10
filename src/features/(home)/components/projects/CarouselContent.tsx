@@ -1,4 +1,4 @@
-import { Project } from "@/features/home/utils/project";
+import { Project } from "@/features/(home)/utils/project";
 import React, { memo } from "react";
 
 interface CarauselContentProps {
