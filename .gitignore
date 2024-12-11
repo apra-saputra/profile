@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 *storybook.log
+
+.env
+.env.*
+
+firebase-certificate.*

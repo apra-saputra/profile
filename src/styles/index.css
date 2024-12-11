@@ -138,7 +138,7 @@
     background-image: url("../assets/background-doodle.png");
     background-repeat: round;
     background-position: center;
-    object-fit: fill;
+    object-fit: cover;
   }
 
   body.dark {
