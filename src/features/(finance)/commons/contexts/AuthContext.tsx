@@ -8,21 +8,19 @@ import React, {
   useMemo,
 } from "react";
 import Cookies from "js-cookie";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/libs/firebase";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "@/libs/firebase/firebase";
+import { UserDisplay, UserFormEmailPassword } from "../types/user";
+import { loginUser, logoutUser, registerUser } from "../services/user";
+import GlobalError from "@/libs/globalError";
 
 // Define tipe untuk user dan context
-export interface User {
-  displayName: string;
-  email: string;
-  photoURL: string;
-}
 
 interface AuthContextType {
-  user: User | undefined;
+  user: UserDisplay | undefined;
   accessToken: string | null;
   isAuthenticated: boolean;
-  login: (userData: User, token: string) => void;
+  login: (userData: UserFormEmailPassword) => void;
   logout: () => void;
 }
 
@@ -36,24 +34,45 @@ interface AuthProviderProps {
 
 // AuthProvider Implementation
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<UserDisplay | undefined>(undefined);
   const [accessToken, setAccessToken] = useState<string | null>(
     Cookies.get("accessToken") || null
   );
 
-  const login = (userData: User, token: string) => {
-    setUser(userData);
-    setAccessToken(token);
+  const login = async (userData: UserFormEmailPassword) => {
+    const user = await loginUser(userData);
+
+    setUser({ ...user });
+    setAccessToken(user.token);
 
     // Simpan token di cookies
-    Cookies.set("accessToken", token, { expires: 7 });
+    Cookies.set("accessToken", user.token, { expires: 7 });
   };
 
-  const logout = () => {
-    setUser(undefined);
-    setAccessToken(null);
-    Cookies.remove("accessToken");
+  const logout = async () => {
+    try {
+      await logoutUser();
+      setUser(undefined);
+      setAccessToken(null);
+      Cookies.remove("accessToken");
+    } catch (error) {
+      throw new GlobalError(error);
+    }
   };
+
+  const register = async (userData: User) => {
+    try {
+      const { token, ...user } = await registerUser(userData);
+
+      setUser(user);
+      setAccessToken(token);
+      Cookies.set("accessToken", token, { expires: 7 });
+    } catch (error) {
+      throw new GlobalError(error);
+    }
+  };
+
+  const loginWithProvider = () => {};
 
   const isAuthenticated = !!accessToken;
 
@@ -63,11 +82,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Contoh menggunakan Firebase auth
       onAuthStateChanged(auth, (firebaseUser) => {
         if (firebaseUser) {
+          console.log(firebaseUser);
           // Ambil data user dari Firebase atau backend
-          const userData: User = {
+          const userData: Omit<User, "password"> = {
+            id: firebaseUser.uid,
             displayName: firebaseUser.displayName || "Unknown",
             email: firebaseUser.email || "",
             photoURL: firebaseUser.photoURL || "",
+            createdAt: firebaseUser.metadata.creationTime || new Date(),
+            role: "user",
           };
           setUser(userData);
         } else {

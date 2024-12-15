@@ -1,9 +1,10 @@
 // src/components/GoogleSignIn.jsx
-import { auth, provider, signInWithPopup } from "@/libs/firebase";
+import { auth, provider, signInWithPopup } from "@/libs/firebase/firebase";
 import { FaGoogle } from "react-icons/fa6";
 import { useAuth } from "../../commons/contexts/AuthContext";
 import { useToast } from "@/features/commons/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { User } from "../../commons/types/user";
 
 const GoogleSignIn = () => {
   const { login } = useAuth();
@@ -16,10 +17,14 @@ const GoogleSignIn = () => {
       const user = result.user;
       const token = await user.getIdToken();
 
+      console.log(user);
+
       const userData = {
         displayName: result.user.displayName || "",
         email: result.user.email || "",
         photoURL: result.user.photoURL || "",
+        createdAt: new Date(),
+        role: "user",
       };
 
       login(userData, token);

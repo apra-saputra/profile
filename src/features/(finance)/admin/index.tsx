@@ -5,6 +5,7 @@ const AdminFinance = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // this only for forcing url 'finance/admin' to 'finance/admin/dashboard'
     navigate("/finance/admin/dashboard");
     return () => {};
   }, []);

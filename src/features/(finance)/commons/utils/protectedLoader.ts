@@ -1,4 +1,4 @@
-import { auth } from "@/libs/firebase";
+import { auth } from "@/libs/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Cookies from "js-cookie";
 import { redirect } from "react-router-dom";

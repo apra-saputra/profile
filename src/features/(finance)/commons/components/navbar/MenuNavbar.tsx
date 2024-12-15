@@ -7,10 +7,10 @@ import {
   DropdownMenuTrigger,
 } from "@/features/commons/components/ui/dropdown-menu";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { User } from "../../contexts/AuthContext";
 import { Button } from "@/features/commons/components/ui/button";
 import { Link } from "react-router-dom";
 import { FC, memo } from "react";
+import { User } from "../../types/user";
 
 interface MenuNavbarProps {
   user?: User;
