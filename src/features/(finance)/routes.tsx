@@ -5,6 +5,7 @@ import SignUpPage from "@/features/(finance)/auth/Sign-up";
 import FinanceLayout from "@/features/(finance)/Layout";
 import AdminFinance from "./admin";
 import { protectedRouteLoader } from "./commons/utils/protectedLoader";
+import AdminLayout from "./AdminLayout";
 
 const FinanceHome = lazy(() => import("@/features/(finance)"));
 const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
@@ -23,6 +24,7 @@ export const financeRoute: RouteObject = {
     {
       path: "admin",
       loader: protectedRouteLoader,
+      element: <AdminLayout />,
       children: [
         {
           path: "",

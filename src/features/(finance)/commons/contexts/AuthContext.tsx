@@ -11,7 +11,12 @@ import Cookies from "js-cookie";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/libs/firebase/firebase";
 import { User, UserDisplay, UserFormEmailPassword } from "../types/user";
-import { loginUser, logoutUser, registerUser } from "../services/user";
+import {
+  loginUser,
+  loginWithGoogleAndSaveToFirestore,
+  logoutUser,
+  registerUser,
+} from "../services/user";
 import GlobalError from "@/libs/globalError";
 
 // Define tipe untuk user dan context
@@ -20,8 +25,10 @@ interface AuthContextType {
   user: UserDisplay | undefined;
   accessToken: string | null;
   isAuthenticated: boolean;
-  login: (userData: UserFormEmailPassword) => void;
-  logout: () => void;
+  login: (userData: UserFormEmailPassword) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (userData: User) => Promise<void>;
+  loginWithProvider: () => Promise<void>;
 }
 
 // Context Default Value
@@ -72,7 +79,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const loginWithProvider = () => {};
+  const loginWithProvider = async () => {
+    const { token, ...user } = await loginWithGoogleAndSaveToFirestore();
+
+    setUser({ ...user });
+    setAccessToken(token);
+    Cookies.set("accessToken", token, { expires: 7 });
+  };
 
   const isAuthenticated = !!accessToken;
 
@@ -80,7 +93,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (accessToken && !user) {
       // Contoh menggunakan Firebase auth
-      onAuthStateChanged(auth, (firebaseUser) => {
+      onAuthStateChanged(auth, async (firebaseUser) => {
         if (firebaseUser) {
           console.log(firebaseUser);
           // Ambil data user dari Firebase atau backend
@@ -92,7 +105,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             createdAt: firebaseUser.metadata.creationTime || new Date(),
             role: "user",
           };
+          const token = await firebaseUser.getIdToken();
           setUser(userData);
+          setAccessToken(token);
+          Cookies.set("accessToken", token, { expires: 7 });
         } else {
           logout();
         }
@@ -112,7 +128,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [accessToken, user]);
 
   const value = useMemo(() => {
-    return { user, accessToken, isAuthenticated, login, logout };
+    return {
+      user,
+      accessToken,
+      isAuthenticated,
+      login,
+      logout,
+      register,
+      loginWithProvider,
+    };
   }, [accessToken, user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

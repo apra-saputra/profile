@@ -10,10 +10,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Button } from "@/features/commons/components/ui/button";
 import { Link } from "react-router-dom";
 import { FC, memo } from "react";
-import { User } from "../../types/user";
+import { UserDisplay } from "../../types/user";
 
 interface MenuNavbarProps {
-  user?: User;
+  user?: UserDisplay;
   logoutFn: () => void;
 }
 
@@ -44,11 +44,11 @@ const MenuNavbar: FC<MenuNavbarProps> = memo(({ user, logoutFn }) => {
                 <p>Sign in</p>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <Link to={"/finance/sign-up"}>
                 <p>Sign up</p>
               </Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </>
         )}
 

@@ -1,6 +1,6 @@
 import { auth, db } from "@/libs/firebase/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { User, UserFormEmailPassword } from "../types/user";
+import { User, UserDisplay, UserFormEmailPassword } from "../types/user";
 import { FirebaseServiceError } from "@/libs/firebase/errorFirebase";
 import {
   createUserWithEmailAndPassword,
@@ -99,8 +99,9 @@ export const logoutUser = async () => {
     throw new GlobalError(error);
   }
 };
-
-export const loginWithGoogleAndSaveToFirestore = async () => {
+export const loginWithGoogleAndSaveToFirestore = async (): Promise<
+  UserDisplay & { token: string }
+> => {
   try {
     // Step 1: Login menggunakan Google
     const provider = new GoogleAuthProvider();
@@ -109,39 +110,46 @@ export const loginWithGoogleAndSaveToFirestore = async () => {
 
     // Step 2: Mendapatkan token pengguna
     const token = await user.getIdToken();
-    console.log("Token:", token);
 
-    // Step 3: Menyimpan atau memperbarui data pengguna di Firestore
+    // Step 3: Mendapatkan referensi dan snapshot Firestore
     const userRef = doc(db, "users", user.uid); // Simpan dengan UID pengguna
     const userSnapshot = await getDoc(userRef);
 
+    let userPayload: Partial<UserDisplay> = {};
+
     if (!userSnapshot.exists()) {
       // Jika pengguna belum ada di Firestore, buat data baru
-      const userPayload = {
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        createdAt: new Date().toISOString(),
-        lastLoginAt: new Date().toISOString(),
+      userPayload = {
+        id: user.uid,
+        displayName: user.displayName || "",
+        email: user.email || "",
+        photoURL: user.photoURL || "",
+        role: "user",
+        createdAt: new Date(),
       };
 
       await setDoc(userRef, userPayload);
       console.log("New user data saved to Firestore:", userPayload);
     } else {
-      // Jika pengguna sudah ada, perbarui `lastLoginAt`
-      await setDoc(
-        userRef,
-        {
-          lastLoginAt: new Date().toISOString(),
-        },
-        { merge: true } // Gabungkan dengan data lama
-      );
-      console.log("User login timestamp updated in Firestore.");
+      // Jika pengguna sudah ada, ambil data dari Firestore dan perbarui `lastLoginAt`
+      const existingData = userSnapshot.data() as UserDisplay;
+      userPayload = {
+        ...existingData,
+      };
+
+      await setDoc(userRef, { lastLoginAt: new Date() }, { merge: true });
     }
 
     // Step 4: Return user and token
-    return { user, token };
+    return {
+      id: userPayload.id!,
+      displayName: userPayload.displayName || "",
+      email: userPayload.email || "",
+      photoURL: userPayload.photoURL || "",
+      createdAt: userPayload.createdAt || new Date(),
+      role: userPayload.role || "user",
+      token,
+    } as UserDisplay & { token: string };
   } catch (error) {
     throw new GlobalError(error);
   }

@@ -10,12 +10,12 @@ import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfiguration: FirebaseOptions = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
   authDomain: import.meta.env.VITE_FIREBASE_AUTHDOMAIN,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STOREBUCKET,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 };
 
 // Initialize Firebase
