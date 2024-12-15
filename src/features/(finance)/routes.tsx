@@ -9,7 +9,7 @@ import AdminLayout from "./AdminLayout";
 
 const FinanceHome = lazy(() => import("@/features/(finance)"));
 const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
-// const Book = lazy(() => import("@/features/(finance)/admin/book"));
+const UserSetting = lazy(() => import("@/features/(finance)/admin/setting"));
 
 export const financeRoute: RouteObject = {
   path: "/finance",
@@ -34,25 +34,11 @@ export const financeRoute: RouteObject = {
           path: "dashboard",
           element: <Dashboard />,
         },
+        {
+          path: "setting",
+          element: <UserSetting />,
+        },
       ],
     },
-    // {
-    //   path: "/admin",
-    //   Component: FinanceLayout,
-    //   children: [
-    //     {
-    //       path: "",
-    //       element: <>Hello admin</>,
-    //     },
-    //     {
-    //       path: "/dashboard",
-    //       Component: Dashboard,
-    //     },
-    //     {
-    //       path: "/book",
-    //       Component: Book,
-    //     },
-    //   ],
-    // },
   ],
 };

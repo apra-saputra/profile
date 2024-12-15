@@ -18,6 +18,7 @@ import {
   registerUser,
 } from "../services/user";
 import GlobalError from "@/libs/globalError";
+import { useNavigate } from "react-router-dom";
 
 // Define tipe untuk user dan context
 
@@ -41,6 +42,8 @@ interface AuthProviderProps {
 
 // AuthProvider Implementation
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<UserDisplay | undefined>(undefined);
   const [accessToken, setAccessToken] = useState<string | null>(
     Cookies.get("accessToken") || null
@@ -62,6 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(undefined);
       setAccessToken(null);
       Cookies.remove("accessToken");
+      navigate("/finance");
     } catch (error) {
       throw new GlobalError(error);
     }
@@ -95,7 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Contoh menggunakan Firebase auth
       onAuthStateChanged(auth, async (firebaseUser) => {
         if (firebaseUser) {
-          console.log(firebaseUser);
+          // console.log(firebaseUser);
           // Ambil data user dari Firebase atau backend
           const userData: UserDisplay = {
             id: firebaseUser.uid,

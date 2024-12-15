@@ -23,7 +23,7 @@ const items = [
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/finance/admin/setting",
     icon: FaGear,
   },
 ];
