@@ -30,9 +30,9 @@ export const SidebarApp = () => {
       <SidebarContent>
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarGroup>
+            <SidebarGroup key={item.title}>
               <SidebarGroupContent>
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
                       <item.icon />
