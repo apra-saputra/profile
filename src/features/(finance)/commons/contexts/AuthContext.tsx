@@ -8,9 +8,9 @@ import React, {
   useMemo,
 } from "react";
 import Cookies from "js-cookie";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/libs/firebase/firebase";
-import { UserDisplay, UserFormEmailPassword } from "../types/user";
+import { User, UserDisplay, UserFormEmailPassword } from "../types/user";
 import { loginUser, logoutUser, registerUser } from "../services/user";
 import GlobalError from "@/libs/globalError";
 
@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (firebaseUser) {
           console.log(firebaseUser);
           // Ambil data user dari Firebase atau backend
-          const userData: Omit<User, "password"> = {
+          const userData: UserDisplay = {
             id: firebaseUser.uid,
             displayName: firebaseUser.displayName || "Unknown",
             email: firebaseUser.email || "",
