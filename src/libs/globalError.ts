@@ -5,7 +5,7 @@ class GlobalError {
   constructor(error: any) {
     if (error instanceof FirebaseError)
       throw new FirebaseServiceError(error.code);
-
+    
     throw new Error("Unexpected Error Occurred.");
   }
 }

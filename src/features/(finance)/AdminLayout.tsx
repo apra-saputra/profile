@@ -11,7 +11,9 @@ const AdminLayout = () => {
       <SidebarApp />
       <div className="flex flex-col">
         <SidebarTrigger />
-        <Outlet />
+        <div className="mx-4">
+          <Outlet />
+        </div>
       </div>
     </SidebarProvider>
   );

@@ -1,14 +1,10 @@
-import { useCategories } from "../../commons/hooks/useCategories";
+import Top10Transaction from "./components/Top10Transaction";
 
 const Dashboard = () => {
-  const { categories, loading, error } = useCategories();
-  if (loading) return <p>Loading categories...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
     <div>
       <h1>Dashboard</h1>
-      <div>{JSON.stringify(categories)}</div>
+      <Top10Transaction />
     </div>
   );
 };

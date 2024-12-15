@@ -3,14 +3,11 @@ import {
   doc,
   getDoc,
   getDocs,
-  //   addDoc,
-  //   doc,
-  //   deleteDoc,
 } from "firebase/firestore";
 import { CategoryCredit } from "../types/category";
 import { db } from "@/libs/firebase/firebase";
-import { FirebaseError } from "firebase/app";
 import { FirebaseServiceError } from "@/libs/firebase/errorFirebase";
+import GlobalError from "@/libs/globalError";
 
 export const fetchCategories = async (): Promise<CategoryCredit[]> => {
   try {
@@ -23,9 +20,7 @@ export const fetchCategories = async (): Promise<CategoryCredit[]> => {
       ...doc.data(),
     })) as CategoryCredit[];
   } catch (error) {
-    if (error instanceof FirebaseError)
-      throw new FirebaseServiceError(error.code);
-    throw new Error("Unexpected Error Occurred.");
+    throw new GlobalError(error);
   }
 };
 
@@ -42,8 +37,6 @@ export const fetchCategoryById = async (
 
     return { id: docSnap.id, ...docSnap.data() } as CategoryCredit;
   } catch (error) {
-    if (error instanceof FirebaseError)
-      throw new FirebaseServiceError(error.code);
-    throw new Error("Unexpected Error Occurred.");
+    throw new GlobalError(error);
   }
 };
