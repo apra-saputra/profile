@@ -80,7 +80,7 @@ const Top10Transaction: FC = () => {
                       className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                     >
                       <td className="p-2 text-sm text-gray-800 border border-gray-300">
-                        {transaction.id}
+                        {++index}
                       </td>
                       <td className="p-2 text-sm text-gray-800 border border-gray-300">
                         {formattedDateFirebase(transaction.createdAt)}

@@ -1,6 +1,7 @@
 import SelectComponent from "@/features/(finance)/commons/components/SelectComponent";
 import { useGetCategories } from "@/features/(finance)/commons/hooks/useGetCategories";
 import { useGetTypeTransactions } from "@/features/(finance)/commons/hooks/useGetTypeTransactions";
+import { createFinanceLog } from "@/features/(finance)/commons/services/financeLog";
 import { formatCurrencySeparateComa } from "@/features/(finance)/commons/utils/functions/formatCurrencySeparateComa";
 import { Button } from "@/features/commons/components/ui/button";
 import {
@@ -14,6 +15,7 @@ import {
 import { Input } from "@/features/commons/components/ui/input";
 import { Label } from "@/features/commons/components/ui/label";
 import { Separator } from "@/features/commons/components/ui/separator";
+import { useToast } from "@/features/commons/hooks/use-toast";
 import { Dispatch, FC, SetStateAction, useMemo, useState } from "react";
 
 interface DialogAddFinanceProps {
@@ -29,7 +31,10 @@ const initialForm = {
 };
 
 const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState(initialForm);
+  const [loadingForm, setLoadingForm] = useState(false);
   const [categoryValue, setCategoryValue] = useState("");
   const [typeTransactionValue, setTypeTransactionValue] = useState("");
 
@@ -59,9 +64,16 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
   }, [errorTransaction, loadingTransaction]);
   // handling Type Transaction options End
 
-  const handleOnSubmit = (event: React.FormEvent) => {
+  const resetState = () => {
+    setFormData(initialForm);
+    setTypeTransactionValue("");
+    setCategoryValue("");
+  };
+
+  const handleOnSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // Your form submission logic here
+    setLoadingForm(true);
     try {
       const payload = {
         ...formData,
@@ -70,16 +82,26 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
         amount: +formData.amount.replace(/[^\d]/g, ""),
         createdAt: new Date(),
       };
-      console.log("onSubmit", payload);
-    } catch (error) {}
+
+      await createFinanceLog(payload);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Ooppss! Something wrong.",
+        description: String(error),
+      });
+    } finally {
+      resetState();
+
+      setLoadingForm(false);
+      setIsOpen(false);
+    }
   };
 
   const handleOnReset = (event: React.FormEvent) => {
     event.preventDefault();
     // Your form reset logic here
-    setFormData(initialForm);
-    setTypeTransactionValue("");
-    setCategoryValue("");
+    resetState();
     console.log("onReset", formData);
   };
 
@@ -110,7 +132,9 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           <div>
             <h4>Name Transaction</h4>
             <div>
-              <Label>Name <span className="text-destructive">*</span></Label>
+              <Label>
+                Name <span className="text-destructive">*</span>
+              </Label>
               <Input
                 required
                 type="text"
@@ -132,7 +156,9 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           <Separator />
 
           <div>
-            <Label>Amount <span className="text-destructive">*</span></Label>
+            <Label>
+              Amount <span className="text-destructive">*</span>
+            </Label>
             <Input
               required
               type="text"
@@ -147,7 +173,9 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           </div>
           <Separator />
           <div>
-            <Label>Category <span className="text-destructive">*</span></Label>
+            <Label>
+              Category <span className="text-destructive">*</span>
+            </Label>
             <SelectComponent
               options={optionsCategory}
               state={categoryValue}
@@ -157,7 +185,9 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           </div>
           <Separator />
           <div>
-            <Label>Type Transaction <span className="text-destructive">*</span></Label>
+            <Label>
+              Type Transaction <span className="text-destructive">*</span>
+            </Label>
             <SelectComponent
               options={optionsTransaction}
               state={typeTransactionValue}
@@ -168,7 +198,9 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           <Separator />
           <DialogFooter>
             <Button type="reset">Reset</Button>
-            <Button type="submit">Submit</Button>
+            <Button type="submit">
+              {loadingForm ? "Loading..." : "Submit"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -5,5 +5,5 @@ export interface CreateFinance {
   typeRef: string; // typeTransactionRef
   name: string;
   desc?: string;
-  amount: string;
+  amount: number;
 }
