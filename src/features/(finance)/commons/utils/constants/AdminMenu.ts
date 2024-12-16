@@ -1,9 +1,9 @@
-import { FaCalendar, FaGear, FaHouse, FaInbox, FaUser } from "react-icons/fa6";
+import { FaCalendar, FaGear, FaHouse, FaInbox } from "react-icons/fa6";
 
 const items = [
   {
-    title: "Home",
-    url: "#",
+    title: "Dashboard",
+    url: "/finance/admin/dashboard",
     icon: FaHouse,
   },
   {
@@ -12,14 +12,9 @@ const items = [
     icon: FaInbox,
   },
   {
-    title: "Calendar",
+    title: "Finance Log",
     url: "#",
     icon: FaCalendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: FaUser,
   },
   {
     title: "Settings",
