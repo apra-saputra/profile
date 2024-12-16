@@ -11,7 +11,7 @@ export interface FinanceLog {
   typeTransaction: TypeTransaction;
 }
 
-type TypeTransaction = {
+export type TypeTransaction = {
   id: string;
   name: string;
 };

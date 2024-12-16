@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchCategories } from "../services/category";
 import { CategoryCredit } from "../types/category";
 
-export const useCategories = () => {
+export const useGetCategories = () => {
   const [categories, setCategories] = useState<CategoryCredit[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

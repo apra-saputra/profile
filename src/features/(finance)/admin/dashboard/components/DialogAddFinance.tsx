@@ -1,3 +1,6 @@
+import SelectComponent from "@/features/(finance)/commons/components/SelectComponent";
+import { useGetCategories } from "@/features/(finance)/commons/hooks/useGetCategories";
+import { useGetTypeTransactions } from "@/features/(finance)/commons/hooks/useGetTypeTransactions";
 import { formatCurrencySeparateComa } from "@/features/(finance)/commons/utils/functions/formatCurrencySeparateComa";
 import { Button } from "@/features/commons/components/ui/button";
 import {
@@ -11,7 +14,7 @@ import {
 import { Input } from "@/features/commons/components/ui/input";
 import { Label } from "@/features/commons/components/ui/label";
 import { Separator } from "@/features/commons/components/ui/separator";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction, useMemo, useState } from "react";
 
 interface DialogAddFinanceProps {
   isOpen: boolean;
@@ -22,12 +25,39 @@ const initialForm = {
   name: "",
   description: "",
   amount: "",
-  categoryRef: "",
   typeRef: "",
 };
 
 const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
   const [formData, setFormData] = useState(initialForm);
+  const [categoryValue, setCategoryValue] = useState("");
+  const [typeTransactionValue, setTypeTransactionValue] = useState("");
+
+  // handling categories options
+  const {
+    categories,
+    error: categoryError,
+    loading: loadingCategory,
+  } = useGetCategories();
+  const optionsCategory = useMemo(() => {
+    if (!loadingCategory && !categoryError)
+      return categories.map((el) => ({ value: el.id, name: el.name }));
+    return [];
+  }, [loadingCategory, categoryError]);
+  // handling categories options End
+
+  // handling Type Transaction options
+  const {
+    typeTransaction,
+    error: errorTransaction,
+    loading: loadingTransaction,
+  } = useGetTypeTransactions();
+  const optionsTransaction = useMemo(() => {
+    if (!errorTransaction && !loadingTransaction)
+      return typeTransaction.map((el) => ({ value: el.id, name: el.name }));
+    return [];
+  }, [errorTransaction, loadingTransaction]);
+  // handling Type Transaction options End
 
   const handleOnSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -35,6 +65,8 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
     try {
       const payload = {
         ...formData,
+        categoryRef: categoryValue,
+        typeRef: typeTransactionValue,
         amount: +formData.amount.replace(/[^\d]/g, ""),
         createdAt: new Date(),
       };
@@ -45,8 +77,10 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
   const handleOnReset = (event: React.FormEvent) => {
     event.preventDefault();
     // Your form reset logic here
-    console.log("onReset", formData);
     setFormData(initialForm);
+    setTypeTransactionValue("");
+    setCategoryValue("");
+    console.log("onReset", formData);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,9 +108,9 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           className="w-full space-y-4"
         >
           <div>
-            <h4>Name and Description</h4>
+            <h4>Name Transaction</h4>
             <div>
-              <Label>Name</Label>
+              <Label>Name <span className="text-destructive">*</span></Label>
               <Input
                 required
                 type="text"
@@ -98,7 +132,7 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           <Separator />
 
           <div>
-            <Label>Amount</Label>
+            <Label>Amount <span className="text-destructive">*</span></Label>
             <Input
               required
               type="text"
@@ -113,11 +147,23 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
           </div>
           <Separator />
           <div>
-            <Label>Category</Label>
+            <Label>Category <span className="text-destructive">*</span></Label>
+            <SelectComponent
+              options={optionsCategory}
+              state={categoryValue}
+              setState={setCategoryValue}
+              placeholder="Select Categories"
+            />
           </div>
           <Separator />
           <div>
-            <Label>Type Transaction</Label>
+            <Label>Type Transaction <span className="text-destructive">*</span></Label>
+            <SelectComponent
+              options={optionsTransaction}
+              state={typeTransactionValue}
+              setState={setTypeTransactionValue}
+              placeholder="Select Transaction"
+            />
           </div>
           <Separator />
           <DialogFooter>
