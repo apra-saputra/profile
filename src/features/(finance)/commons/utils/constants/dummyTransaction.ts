@@ -1,9 +1,10 @@
-import { FinanceLog } from "../../types/financeLog";
+import { Timestamp } from "firebase/firestore";
+import { FinanceLog } from "../../types/finance/financeLog";
 
 export const dummyFinances: FinanceLog[] = [
   {
     id: "1",
-    createdAt: new Date("2024-12-01"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction A",
     amount: 100,
     category: { id: "cat1", name: "Shopping" },
@@ -12,7 +13,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "2",
-    createdAt: new Date("2024-12-02"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction B",
     amount: 150,
     category: { id: "cat2", name: "Food" },
@@ -21,7 +22,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "3",
-    createdAt: new Date("2024-12-03"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction C",
     amount: 200,
     category: { id: "cat3", name: "Travel" },
@@ -30,7 +31,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "4",
-    createdAt: new Date("2024-12-04"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction D",
     amount: 250,
     category: { id: "cat4", name: "Bills" },
@@ -39,7 +40,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "5",
-    createdAt: new Date("2024-12-05"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction E",
     amount: 300,
     category: { id: "cat5", name: "Entertainment" },
@@ -48,7 +49,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "6",
-    createdAt: new Date("2024-12-06"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction F",
     amount: 350,
     category: { id: "cat1", name: "Shopping" },
@@ -57,7 +58,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "7",
-    createdAt: new Date("2024-12-07"),
+    createdAt:new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction G",
     amount: 400,
     category: { id: "cat6", name: "Health" },
@@ -66,7 +67,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "8",
-    createdAt: new Date("2024-12-08"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction H",
     amount: 450,
     category: { id: "cat2", name: "Food" },
@@ -75,7 +76,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "9",
-    createdAt: new Date("2024-12-09"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction I",
     amount: 500,
     category: { id: "cat4", name: "Bills" },
@@ -84,7 +85,7 @@ export const dummyFinances: FinanceLog[] = [
   },
   {
     id: "10",
-    createdAt: new Date("2024-12-10"),
+    createdAt: new Timestamp(new Date().getSeconds(), new Date().getMilliseconds()),
     name: "Transaction J",
     amount: 550,
     category: { id: "cat3", name: "Travel" },
