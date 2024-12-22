@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import useDocumentTitle from "../commons/hooks/useDocumentTitle";
+import useDocumentTitle from "../../commons/hooks/useDocumentTitle";
 // import Paralax from "./Paralax";
 import Profile from "./Profile";
 import Projects from "./Projects";

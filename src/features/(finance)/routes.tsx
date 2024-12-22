@@ -11,7 +11,7 @@ const FinanceHome = lazy(() => import("@/features/(finance)"));
 const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
 const UserSetting = lazy(() => import("@/features/(finance)/admin/setting"));
 
-export const financeRoute: RouteObject = {
+const financeRoute: RouteObject = {
   path: "/finance",
   element: <FinanceLayout />,
   children: [
@@ -42,3 +42,5 @@ export const financeRoute: RouteObject = {
     },
   ],
 };
+
+export default financeRoute

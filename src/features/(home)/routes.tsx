@@ -3,9 +3,11 @@ import Mainlayout from "@/features/commons/components/Mainlayout";
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
-const Home = lazy(() => import("@/features/(home)"));
+const Home = lazy(() => import("@/features/(home)/home"));
+// const Projects = lazy(() => import("@/features/(home)/projects"));
+// const ProjectDetails = lazy(() => import("@/features/(home)/projectDetail"));
 
-export const homeRoute: RouteObject = {
+const homeRoute: RouteObject = {
   path: "/",
   Component: Mainlayout,
   children: [
@@ -16,6 +18,9 @@ export const homeRoute: RouteObject = {
     {
       path: "/projects/:id",
       element: <ComingSoonPage />,
+      // element: <ProjectDetails />,
     },
   ],
 };
+
+export default homeRoute;

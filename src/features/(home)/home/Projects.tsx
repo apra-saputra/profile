@@ -1,9 +1,10 @@
-import { projects } from "@/features/(home)/utils/project";
+import { projects } from "@/features/(home)/home/utils/project";
 import {
   CarouselComponent,
   CarouselItemComponent,
-} from "../commons/components/carousel/CarouselComponent";
+} from "../../commons/components/carousel/CarouselComponent";
 import { Link } from "react-router-dom";
+import { obfuscateId } from "@/features/commons/utils/functions/hashing";
 
 const Projects = () => {
   return (
@@ -14,7 +15,10 @@ const Projects = () => {
             className="flex flex-col py-6 gap-y-4 md:basis-1/3 lg:basis-1/3"
             index={`${index}+${project.id}`}
           >
-            <Link to={`/projects/${project.id}`} className="relative rounded overflow-hidden hover:-translate-y-3 duration-300 ease-in-out">
+            <Link
+              to={`/projects/${obfuscateId(project.id)}`}
+              className="relative rounded overflow-hidden hover:-translate-y-3 duration-300 ease-in-out"
+            >
               <img
                 src={project.image}
                 loading="lazy"
@@ -26,9 +30,7 @@ const Projects = () => {
 
             <div className="px-2 text-center">
               <h4 className="font-bold capitalize">{project.title}</h4>
-              <p className="line-clamp-3">
-                {project.description.en}
-              </p>
+              <p className="line-clamp-3">{project.description.en}</p>
             </div>
           </CarouselItemComponent>
         ))}

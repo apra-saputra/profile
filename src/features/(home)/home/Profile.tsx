@@ -1,7 +1,7 @@
 import BioSection from "./components/profile/BioSection";
 import AvatarSection from "./components/profile/AvatarSection";
 import { Link } from "react-router-dom";
-import { Separator } from "../commons/components/ui/separator";
+import { Separator } from "../../commons/components/ui/separator";
 
 const Profile = () => {
   return (
