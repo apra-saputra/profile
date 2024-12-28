@@ -1,11 +1,11 @@
-import ComingSoonPage from "@/features/ComingSoonPage";
+// import ComingSoonPage from "@/features/ComingSoonPage";
 import Mainlayout from "@/features/commons/components/Mainlayout";
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 
 const Home = lazy(() => import("@/features/(home)/home"));
 // const Projects = lazy(() => import("@/features/(home)/projects"));
-// const ProjectDetails = lazy(() => import("@/features/(home)/projectDetail"));
+const ProjectDetails = lazy(() => import("@/features/(home)/projectDetail"));
 
 const homeRoute: RouteObject = {
   path: "/",
@@ -17,8 +17,8 @@ const homeRoute: RouteObject = {
     },
     {
       path: "/projects/:id",
-      element: <ComingSoonPage />,
-      // element: <ProjectDetails />,
+      // element: <ComingSoonPage />,
+      element: <ProjectDetails />,
     },
   ],
 };

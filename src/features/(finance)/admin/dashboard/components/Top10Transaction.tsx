@@ -37,8 +37,8 @@ const Top10Transaction: FC = () => {
 
   return (
     <>
-      <Card>
-        <CardContent className="min-h-[400px] space-y-4 py-2">
+      <Card className="w-full">
+        <CardContent className="min-h-[400px] space-y-4 py-2 w-full overflow-x-auto">
           <div className="flex items-center justify-between w-full">
             <h2 className="text-lg font-semibold">Top 10 Transactions</h2>
             <Button onClick={() => SetIsOpenAddDialog((state) => !state)}>
@@ -49,8 +49,8 @@ const Top10Transaction: FC = () => {
           {isLoading ? ( // Jika sedang loading, tampilkan indikator loading
             <p>Loading...</p>
           ) : (
-            <div className="overflow-y-auto">
-              <table className="min-w-full border-collapse border border-gray-300">
+            <div className="overflow-hidden w-full">
+              <table className="min-w-full table-fixed border-collapse border border-gray-300">
                 <thead className="bg-gray-100">
                   <tr>
                     <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">

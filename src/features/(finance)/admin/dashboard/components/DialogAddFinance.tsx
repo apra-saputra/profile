@@ -2,7 +2,7 @@ import SelectComponent from "@/features/(finance)/commons/components/SelectCompo
 import { useGetCategories } from "@/features/(finance)/commons/hooks/useGetCategories";
 import { useGetTypeTransactions } from "@/features/(finance)/commons/hooks/useGetTypeTransactions";
 import { createFinanceLog } from "@/features/(finance)/commons/services/financeLog";
-import { formatCurrencySeparateComa } from "@/features/(finance)/commons/utils/functions/formatCurrencySeparateComa";
+import { formatSeparateComa } from "@/features/(finance)/commons/utils/functions/formatSeparateComa";
 import { Button } from "@/features/commons/components/ui/button";
 import {
   Dialog,
@@ -163,7 +163,7 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
               required
               type="text"
               name="amount"
-              value={formatCurrencySeparateComa(formData.amount)}
+              value={formatSeparateComa(formData.amount)}
               onChange={handleInputChange}
               placeholder="Enter amount"
             />

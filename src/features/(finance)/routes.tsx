@@ -1,11 +1,12 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 import SignInPage from "@/features/(finance)/auth/Sign-in";
-import SignUpPage from "@/features/(finance)/auth/Sign-up";
+// import SignUpPage from "@/features/(finance)/auth/Sign-up";
 import FinanceLayout from "@/features/(finance)/Layout";
 import AdminFinance from "./admin";
 import { protectedRouteLoader } from "./commons/utils/protectedLoader";
-import AdminLayout from "./AdminLayout";
+// import AdminLayout from "./AdminLayout";
+import ComingSoonPage from "../ComingSoonPage";
 
 const FinanceHome = lazy(() => import("@/features/(finance)"));
 const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
@@ -20,11 +21,10 @@ const financeRoute: RouteObject = {
       element: <FinanceHome />,
     },
     { path: "sign-in", element: <SignInPage /> },
-    { path: "sign-up", element: <SignUpPage /> },
+    { path: "sign-up", element: <ComingSoonPage /> },
     {
       path: "admin",
       loader: protectedRouteLoader,
-      element: <AdminLayout />,
       children: [
         {
           path: "",
@@ -43,4 +43,4 @@ const financeRoute: RouteObject = {
   ],
 };
 
-export default financeRoute
+export default financeRoute;
