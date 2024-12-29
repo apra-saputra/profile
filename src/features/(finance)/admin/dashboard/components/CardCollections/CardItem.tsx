@@ -30,7 +30,7 @@ const CardItem: FC<CardItemProps> = ({
         </div>
       </CardContent>
       <CardFooter>
-        <p className="text-muted">{additionalInfo ? additionalInfo : ""}</p>
+        <p className="text-gray-400">{additionalInfo ? additionalInfo : ""}</p>
       </CardFooter>
     </Card>
   );
