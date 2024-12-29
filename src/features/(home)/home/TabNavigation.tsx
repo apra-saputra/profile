@@ -43,7 +43,8 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ menu }) => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -300, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="rounded bg-primary/90 py-6 relative lg:ml-24 ml-0 mx-0 drop-shadow-lg w-full h-full"
+              // className="rounded bg-primary/90 py-6 relative lg:ml-24 ml-0 mx-0 drop-shadow-lg w-full h-full"
+              className="rounded bg-primary/90 pt-6 pb-24 relative lg:ml-24 ml-0 mx-0 drop-shadow-lg w-full h-fit"
             >
               <div className="absolute z-10 left-10 -top-10">
                 <h1 className="text-6xl text-background outlined-text border-1">

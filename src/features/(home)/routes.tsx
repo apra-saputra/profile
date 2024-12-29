@@ -1,5 +1,5 @@
 // import ComingSoonPage from "@/features/ComingSoonPage";
-import Mainlayout from "@/features/commons/components/Mainlayout";
+import Mainlayout from "@/features/(home)/Mainlayout";
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 

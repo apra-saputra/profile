@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
-import SplashScreen from "./SplashScreen";
-import ButtonChangeTheme from "./ButtonChangeTheme";
-import Footer from "./Footer";
+import SplashScreen from "../commons/components/SplashScreen";
+import ButtonChangeTheme from "../commons/components/ButtonChangeTheme";
+import Footer from "../commons/components/Footer";
 
 const Mainlayout = () => {
   return (

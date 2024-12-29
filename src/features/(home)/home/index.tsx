@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       {/* <Paralax /> */}
-      <div className="w-full flex flex-col items-center justify-center gap-y-6 h-full lg:mt-32 mt-4 xl:px-0 lg:px-6 px-2">
+      <div className="w-full flex flex-col items-center justify-center gap-y-6 h-full lg:mt-32 mt-4 xl:px-0 lg:px-6 px-2 pb-28">
         <div className="container flex flex-col lg:flex-row lg:gap-y-0 gap-y-[4rem] h-full lg:h-[75dvh] py-24 mb-44">
           <TabNavigation menu={menu} />
         </div>
