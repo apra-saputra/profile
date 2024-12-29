@@ -1,134 +1,85 @@
 import {
-  AudioWaveform,
   BookOpen,
-  Bot,
   Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
+  ReceiptText,
   Settings2,
-  SquareTerminal,
+  Trello,
 } from "lucide-react";
+import { ElementType } from "react";
 
-export const menu = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+type Header = { title: string; logo: ElementType; shortDescription?: string };
+
+type ItemNavigationMenu = {
+  title: string;
+  url: string;
+};
+
+type NavigationMenu = {
+  title: string;
+  url: string;
+  icon: ElementType;
+  isActive?: boolean;
+  items?: ItemNavigationMenu[];
+};
+
+export type NavType = { lable: string; menu: NavigationMenu[] };
+
+export type NavigationType = { header: Header; nav: NavType };
+
+export const navigation: NavigationType = {
+  header: {
+    title: "Finance",
+    logo: Command,
+    shortDescription: "Financial statements",
   },
-  header: {title: "Finance", logo: Command, shortDescription: 'Financial statements'},
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Main",
-      url: "/finance/admin",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Dashboard",
-          url: "/finance/admin/dashboard",
-        },
-        // {
-        //   title: "Starred",
-        //   url: "#",
-        // },
-        // {
-        //   title: "Settings",
-        //   url: "#",
-        // },
-      ],
-    },
-    {
-      title: "Report",
-      url: "#report", // => /finance/admin/report
-      icon: Bot,
-      items: [
-        {
-          title: "Create",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Note",
-      url: "#note", // => /finance/admin/note
-      icon: BookOpen,
-      items: [
-        {
-          title: "Create",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "/finance/admin/setting",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "/finance/admin/setting",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  nav: {
+    lable: "Navigation",
+    menu: [
+      {
+        title: "Main",
+        url: "/finance/admin",
+        icon: Trello,
+        isActive: true,
+        items: [
+          {
+            title: "Dashboard",
+            url: "/finance/admin/dashboard",
+          },
+          // {
+          //   title: "Starred",
+          //   url: "#",
+          // },
+          // {
+          //   title: "Settings",
+          //   url: "#",
+          // },
+        ],
+      },
+      {
+        title: "Report Finance",
+        url: "#report-finance", // => /finance/admin/report
+        icon: ReceiptText,
+        items: [
+          {
+            title: "Table",
+            url: "#",
+          },
+          {
+            title: "Create",
+            url: "#",
+          },
+        ],
+      },
+      {
+        title: "Note",
+        url: "#Note", // => /finance/admin/note
+        icon: BookOpen,
+      },
+      {
+        title: "Settings",
+        url: "/finance/admin/setting",
+        icon: Settings2,
+      },
+    ],
+  },
 };

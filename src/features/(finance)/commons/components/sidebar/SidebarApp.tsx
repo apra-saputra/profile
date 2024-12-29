@@ -6,12 +6,11 @@ import {
   SidebarRail,
 } from "@/features/commons/components/ui/sidebar";
 import { useAuth } from "../../contexts/AuthContext";
-// import { TeamSwitcher } from "./TeamSwitcher";
 import { NavMain } from "./NavMain";
-import { NavProjects } from "./NavProjects";
 import { NavUser } from "./NavUser";
 import NavHeader from "./NavHeader";
-import { menu } from "../../utils/constants/AdminMenu";
+import { navigation } from "../../utils/constants/AdminMenu";
+import FooterScrollUp from "./FooterScrollUp";
 
 export const SidebarApp = ({ ...props }) => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -21,14 +20,14 @@ export const SidebarApp = ({ ...props }) => {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <NavHeader header={menu.header} />
+        <NavHeader header={navigation.header} />
         {/* <TeamSwitcher teams={menu.teams} /> */}
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={menu.navMain} />
-        <NavProjects projects={menu.projects} />
+        <NavMain items={navigation.nav} />
       </SidebarContent>
       <SidebarFooter>
+        <FooterScrollUp />
         <NavUser
           user={{
             name: user?.displayName || "",
@@ -40,43 +39,5 @@ export const SidebarApp = ({ ...props }) => {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-
-    // <Sidebar>
-    //   <SidebarHeader>
-    //     <h1>Logo</h1>
-    //   </SidebarHeader>
-    //   <SidebarContent>
-    //     <SidebarMenu>
-    //       {items.map((item) => (
-    //         <SidebarGroup key={item.title}>
-    //           <SidebarGroupContent>
-    //             <SidebarMenuItem>
-    //               <SidebarMenuButton asChild>
-    //                 <Link to={item.url}>
-    //                   <item.icon />
-    //                   <span>{item.title}</span>
-    //                 </Link>
-    //               </SidebarMenuButton>
-    //             </SidebarMenuItem>
-    //           </SidebarGroupContent>
-    //         </SidebarGroup>
-    //       ))}
-    //     </SidebarMenu>
-    //     <SidebarGroup />
-    //   </SidebarContent>
-    //   <SidebarFooter>
-    //     <div className="px-6 py-4 rounded-md border border-foreground/30 flex items-center justify-between gap-x-4">
-    //       <Avatar>
-    //         <AvatarImage src={user?.photoURL} alt="Avatar" loading="lazy" />
-    //         <AvatarFallback>{user?.displayName[0]}</AvatarFallback>
-    //       </Avatar>
-    //       <span>{user?.displayName.split(" ")[0]}</span>
-    //       <Button onClick={logout}>
-    //         <RiLogoutBoxRLine />
-    //       </Button>
-    //     </div>
-    //   </SidebarFooter>
-    //   <SidebarFooter />
-    // </Sidebar>
   );
 };
