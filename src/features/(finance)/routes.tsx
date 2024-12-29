@@ -41,7 +41,10 @@ const financeRoute: RouteObject = {
         {
           path: "report",
           element: <FinanceTable />,
-          children: [{ path: "create", Component: ComingSoonPage }],
+        },
+        {
+          path: "report/create",
+          element: <ComingSoonPage />,
         },
         {
           path: "note",
