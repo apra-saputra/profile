@@ -31,7 +31,7 @@ const ChartItem: FC<ChartItemProps> = memo(
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
-            <BarChart accessibilityLayer data={data}>
+            <BarChart accessibilityLayer data={data} key={`${title}-${data.length}`}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"

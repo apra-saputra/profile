@@ -2,12 +2,10 @@ import comingSoon from "@/assets/coming-soon.webp";
 import { Button } from "./commons/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { FaHouse } from "react-icons/fa6";
-import { useTheme } from "./commons/contexts/ThemeContext";
 import { Card, CardContent } from "./commons/components/ui/card";
 
 const ComingSoonPage = () => {
   const navigate = useNavigate();
-  const { theme } = useTheme();
   return (
     <section className="w-full h-full relative">
       <div className="relative w-full h-screen shadow">
