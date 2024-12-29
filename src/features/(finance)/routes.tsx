@@ -10,11 +10,11 @@ import ComingSoonPage from "../ComingSoonPage";
 
 const FinanceHome = lazy(() => import("@/features/(finance)"));
 const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
-const UserSetting = lazy(() => import("@/features/(finance)/admin/setting"));
+// const UserSetting = lazy(() => import("@/features/(finance)/admin/setting"));
 const FinanceTable = lazy(
   () => import("@/features/(finance)/admin/financeTable")
 );
-const Note = lazy(() => import("@/features/(finance)/admin/note"));
+// const Note = lazy(() => import("@/features/(finance)/admin/note"));
 
 const financeRoute: RouteObject = {
   path: "/finance",
@@ -40,7 +40,7 @@ const financeRoute: RouteObject = {
         },
         {
           path: "report",
-          element: <FinanceTable />,
+          element: <ComingSoonPage />,
         },
         {
           path: "report/create",
@@ -48,11 +48,11 @@ const financeRoute: RouteObject = {
         },
         {
           path: "note",
-          element: <Note />,
+          element: <ComingSoonPage />,
         },
         {
           path: "setting",
-          element: <UserSetting />,
+          element: <ComingSoonPage />,
         },
       ],
     },
