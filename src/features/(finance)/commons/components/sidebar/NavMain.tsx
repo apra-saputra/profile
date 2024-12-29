@@ -29,7 +29,7 @@ export function NavMain({ items }: NavMainProps) {
         {items.menu.map((item) => {
           if (!item.items?.length) {
             return (
-              <SidebarMenuItem>
+              <SidebarMenuItem key={item.title + item.url}>
                 <SidebarMenuButton tooltip={item.title}>
                   <Link to={item.url} className="flex gap-x-1 px-0 ml-0">
                     {item.icon && <item.icon width={"1rem"} />}

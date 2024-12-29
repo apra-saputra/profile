@@ -7,9 +7,11 @@ import { Card, CardContent } from "@/features/commons/components/ui/card";
 import { useToast } from "@/features/commons/hooks/use-toast";
 import { FC, useEffect, useState } from "react";
 import DialogAddFinance from "./DialogAddFinance";
+import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
 
 const Top10Transaction: FC = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
   // State untuk menyimpan data transaksi
   const [data, setData] = useState<FinanceLog[]>(dummyFinances); // Default menggunakan dummy data
   const [isLoading, setIsLoading] = useState(false); // Untuk indikasi loading
@@ -19,7 +21,7 @@ const Top10Transaction: FC = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const fetchedData = await fetchFinanceLog(10);
+        const fetchedData = await fetchFinanceLog(user?.id || "", 10);
         setData(fetchedData);
       } catch (error) {
         toast({
@@ -33,7 +35,7 @@ const Top10Transaction: FC = () => {
     };
 
     fetchData();
-  }, []); // Dijalankan saat komponen pertama kali di-render
+  }, [user]); // Dijalankan saat komponen pertama kali di-render
 
   return (
     <>

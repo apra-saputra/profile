@@ -8,18 +8,26 @@ import {
   getDocs,
   query,
   limit as queryLimit,
+  where,
 } from "firebase/firestore";
 import { FinanceLog } from "../types/finance/financeLog";
 import { CreateFinance } from "../types/finance/create";
 import { FirebaseServiceError } from "@/libs/firebase/errorFirebase";
 
-export const fetchFinanceLog = async (limit: number = 10) => {
+export const fetchFinanceLog = async (userRef: string, limit: number = 10) => {
   try {
     // Referensi koleksi Firestore
     const financeRef = collection(db, "financeLog");
 
+    // cari user
+    const userDocRef = doc(db, "users", userRef);
+
     // Buat query dengan batasan limit
-    const financeQuery = query(financeRef, queryLimit(limit));
+    const financeQuery = query(
+      financeRef,
+      where("userRef", "==", userDocRef),
+      queryLimit(limit)
+    );
 
     // Eksekusi query untuk mendapatkan dokumen
     const querySnapshot = await getDocs(financeQuery);
