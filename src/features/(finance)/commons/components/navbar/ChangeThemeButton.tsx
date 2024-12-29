@@ -7,7 +7,7 @@ import { GoSun } from "react-icons/go";
 const ChangeThemeButton = memo(() => {
   const { theme, toggleTheme } = useTheme();
   return (
-    <Button onClick={() => toggleTheme()} variant={"outline"} className="text-foreground bg-accent border-foreground">
+    <Button onClick={() => toggleTheme()} variant={"default"} className="border-foreground">
       {theme === "light" ? <GoSun /> : <FaRegMoon />}
     </Button>
   );

@@ -1,3 +1,4 @@
+import { formatCurrency } from "@/features/(finance)/commons/utils/functions/formatCurrency";
 import {
   Card,
   CardContent,
@@ -21,24 +22,24 @@ interface PieItemProps {
 }
 
 const PieItem: FC<PieItemProps> = ({ data, title, chartConfig, keys }) => {
-  const totalVisitors = useMemo(() => {
-    return data.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+  const totalMoney = useMemo(() => {
+    return data.reduce((acc, curr) => acc + curr.value, 0);
+  }, [data.length]);
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-3">
-        <table className="table-fixed border-collapse border border-gray-300">
+      <CardContent className="grid grid-cols-3 items-center h-full">
+        <table className="table-auto border border-primary text-foreground">
           <tbody>
             {keys.map((key, index) => (
               <tr
                 key={index}
-                className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                className={`${index % 2 === 0 ? "bg-slate-200 dark:bg-slate-700" : "bg-gray-50 dark:bg-gray-700"}`}
               >
-                <td className="p-2 text-sm text-gray-800 border border-gray-300">
+                <td className="p-2 text-sm">
                   {key}
                 </td>
               </tr>
@@ -56,10 +57,12 @@ const PieItem: FC<PieItemProps> = ({ data, title, chartConfig, keys }) => {
             />
             <Pie
               data={data}
-              dataKey="visitors"
-              nameKey="browser"
-              innerRadius={60}
-              strokeWidth={10}
+              dataKey="value"
+              nameKey="name"
+              
+              innerRadius={80}
+              outerRadius={120}
+              strokeWidth={20}
             >
               <Label
                 content={({ viewBox }) => {
@@ -76,14 +79,14 @@ const PieItem: FC<PieItemProps> = ({ data, title, chartConfig, keys }) => {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {formatCurrency(totalMoney)}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          data
                         </tspan>
                       </text>
                     );

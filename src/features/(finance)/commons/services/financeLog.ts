@@ -1,4 +1,5 @@
 import { db } from "@/libs/firebase/firebase";
+import { startOfMonth, endOfMonth } from "date-fns";
 import GlobalError from "@/libs/globalError";
 import {
   addDoc,
@@ -14,7 +15,11 @@ import { FinanceLog } from "../types/finance/financeLog";
 import { CreateFinance } from "../types/finance/create";
 import { FirebaseServiceError } from "@/libs/firebase/errorFirebase";
 
-export const fetchFinanceLog = async (userRef: string, limit: number = 10) => {
+export const fetchFinanceLog = async (
+  userRef: string,
+  limit: number = 10,
+  date = new Date()
+) => {
   try {
     // Referensi koleksi Firestore
     const financeRef = collection(db, "financeLog");
@@ -22,9 +27,15 @@ export const fetchFinanceLog = async (userRef: string, limit: number = 10) => {
     // cari user
     const userDocRef = doc(db, "users", userRef);
 
+    // Calculate the start and end of the current month
+    const startDate = startOfMonth(date);
+    const endDate = endOfMonth(date);
+
     // Buat query dengan batasan limit
     const financeQuery = query(
       financeRef,
+      where("createdAt", ">=", startDate.toISOString()),
+      where("createdAt", "<=", endDate.toISOString()),
       where("userRef", "==", userDocRef),
       queryLimit(limit)
     );
@@ -66,6 +77,7 @@ export const fetchFinanceLog = async (userRef: string, limit: number = 10) => {
     return financeLogs as FinanceLog[];
   } catch (error: any) {
     // Tangani error menggunakan GlobalError
+    console.log(error);
     throw new GlobalError(error.message || "Failed to fetch finance logs");
   }
 };
@@ -82,6 +94,13 @@ export const createFinanceLog = async (financeLog: CreateFinance) => {
       throw new GlobalError(
         "Missing required fields: name, amount, categoryRef, or typeRef"
       );
+    }
+
+    // Referensi user
+    const userRef = doc(db, "users", financeLog.userRef);
+    const userDoc = await getDoc(userRef);
+    if (!userDoc.exists()) {
+      throw new FirebaseServiceError("firestore/not-found");
     }
 
     // Referensi kategori
@@ -111,6 +130,7 @@ export const createFinanceLog = async (financeLog: CreateFinance) => {
       createdAt: new Date().toISOString(), // Tambahkan timestamp
       categoryRef, // Simpan referensi kategori
       typeRef, // Simpan referensi tipe transaksi
+      userRef,
     };
 
     const docRef = await addDoc(financeLogRef, newFinanceLog);

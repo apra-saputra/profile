@@ -3,6 +3,7 @@ import { FirebaseServiceError } from "./firebase/errorFirebase";
 
 class GlobalError {
   constructor(error: any) {
+    console.log(error)
     if (error instanceof FirebaseError)
       throw new FirebaseServiceError(error.code);
     

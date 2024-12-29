@@ -2,6 +2,7 @@ import dewiayu from "@/assets/images/dewiayu-carwash.png";
 import movieapp from "@/assets/images/movieapp.png";
 import myAnime from "@/assets/images/my-anime.png";
 import restAPI from "@/assets/API.svg";
+import finance from '@/assets/images/finance-dashboard.png'
 import { obfuscateId } from "@/features/commons/utils/functions/hashing";
 
 export type Project = {
@@ -114,6 +115,6 @@ export const projects: Project[] = [
     ],
     url: { demo: "/finance" },
     tags: ["Front End", "Firebase"],
-    image: movieapp,
+    image: finance,
   },
 ];

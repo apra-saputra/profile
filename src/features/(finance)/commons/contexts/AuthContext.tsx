@@ -44,7 +44,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<UserDisplay | undefined>(undefined);
+  const [user, setUser] = useState<UserDisplay>();
   const [accessToken, setAccessToken] = useState<string | null>(
     Cookies.get("accessToken") || null
   );
