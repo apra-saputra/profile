@@ -6,6 +6,8 @@ const Dashboard = () => {
     <div className="space-y-4">
       <h1>Dashboard</h1>
       <CardCollections />
+      <CardCollections />
+      <CardCollections />
       <Top10Transaction />
     </div>
   );

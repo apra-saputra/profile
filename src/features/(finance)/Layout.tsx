@@ -16,29 +16,10 @@ const FinanceLayout = () => {
   return (
     <AuthProvider>
       <SidebarProvider>
-        {/* <div className="w-full h-full">
-          <SidebarApp />
-          <SidebarInset>
-            <FinanceNavbar />
-            <main className="min-h-[10dvh]">
-              <Suspense fallback={<SplashScreen />}>
-                <Outlet />
-              </Suspense>
-            </main>
-            <Footer />
-          </SidebarInset>
-        </div> */}
-
         <SidebarApp />
         <SidebarInset>
           <FinanceNavbar />
           <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-            {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-              <div className="aspect-video rounded-xl bg-muted/50" />
-              <div className="aspect-video rounded-xl bg-muted/50" />
-              <div className="aspect-video rounded-xl bg-muted/50" />
-            </div>
-            <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
             <Suspense fallback={<SplashScreen />}>
               <Outlet />
             </Suspense>

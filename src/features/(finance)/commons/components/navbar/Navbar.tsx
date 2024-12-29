@@ -29,18 +29,19 @@ const FinanceNavbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
 
   return (
-    <header className="flex flex-col shrink-0 items-start gap-2 transition-[width,height] ease-linear ">
-      <nav className="w-full flex justify-between items-center px-4 py-4 overflow-hidden h-full bg-accent">
+    <header className="flex flex-col shrink-0 items-start gap-2 transition-[width,height] ease-linear">
+      {/* Sticky Navbar */}
+      <nav className="w-full flex justify-between items-center px-4 py-4 overflow-hidden bg-accent ">
         <Link to={"/finance"}>
           <h1>Logo</h1>
         </Link>
-
         <div className="space-x-2">
           <ChangeThemeButton />
           <MenuNavbar user={user} logoutFn={logout} />
         </div>
       </nav>
 
+      {/* Scrollable Breadcrumb */}
       {isAuthenticated && (
         <div className="flex items-center gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
