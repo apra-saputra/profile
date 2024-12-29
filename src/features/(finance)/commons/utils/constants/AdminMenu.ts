@@ -57,22 +57,22 @@ export const navigation: NavigationType = {
       },
       {
         title: "Report Finance",
-        url: "#report-finance", // => /finance/admin/report
+        url: "", // => /finance/admin/report
         icon: ReceiptText,
         items: [
           {
             title: "Table",
-            url: "#",
+            url: "/finance/admin/report",
           },
           {
             title: "Create",
-            url: "#",
+            url: "/finance/admin/report/create",
           },
         ],
       },
       {
         title: "Note",
-        url: "#Note", // => /finance/admin/note
+        url: "/finance/admin/note", // => /finance/admin/note
         icon: BookOpen,
       },
       {
