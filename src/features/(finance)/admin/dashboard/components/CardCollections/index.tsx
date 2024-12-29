@@ -1,30 +1,52 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import CardItem from "./CardItem";
 import { formatCurrency } from "@/features/(finance)/commons/utils/functions/formatCurrency";
 import { FaHashtag, FaRegBookmark } from "react-icons/fa6";
+import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
+import { fetchBanners } from "@/features/(finance)/commons/services/dashboard";
+import useFetchData from "@/features/(finance)/commons/hooks/useFetchData";
 
-const dummy = [
-  {
-    title: "Total Amout",
-    value: 65000000,
-    additionalInfo: "This month",
-    icon: <FaRegBookmark />,
-  },
-  {
-    title: "This Month",
-    value: 650000,
-    icon: <FaHashtag />,
-  },
-  {
-    title: "Most Category",
-    value: 150000,
-    icon: <FaHashtag />,
-    additionalInfo: "Kebutuhan",
-  },
-];
+type DataBanner = {
+  title: string;
+  value: number;
+  icon: ReactNode;
+  additionalInfo?: string;
+};
 
 const CardCollections = () => {
-  const [data, _] = useState(dummy);
+  const { user } = useAuth();
+
+  const [data, setData] = useState<DataBanner[]>([]);
+
+  useFetchData({
+    data: data,
+    setData: setData,
+    fetch: async () => {
+      const fetchedData = await fetchBanners(user?.id || ""),
+        payload: DataBanner[] = [];
+
+      payload.push({
+        title: "Total Amout",
+        value: fetchedData.totalAmount.value,
+        additionalInfo: fetchedData.totalAmount.text || "This month",
+        icon: <FaRegBookmark />,
+      });
+      payload.push({
+        title: "Most Expense Category",
+        value: fetchedData.mostCategory.value,
+        additionalInfo: fetchedData.mostCategory.text || "This month",
+        icon: <FaHashtag />,
+      });
+      payload.push({
+        title: "Lowest Expense Category",
+        value: fetchedData.lowestCategory.value,
+        additionalInfo: fetchedData.lowestCategory.text || "This month",
+        icon: <FaHashtag />,
+      });
+
+      return payload;
+    },
+  });
 
   return (
     <div className="grid auto-rows-min gap-4 md:grid-cols-3">

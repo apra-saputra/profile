@@ -29,13 +29,13 @@ export function NavMain({ items }: NavMainProps) {
         {items.menu.map((item) => {
           if (!item.items?.length) {
             return (
-              <SidebarMenuItem>
-                <SidebarMenuButton tooltip={item.title}>
-                  <Link to={item.url} className="flex gap-x-1 px-0 ml-0">
+              <SidebarMenuItem key={item.title + item.url}>
+                <Link to={item.url} className="flex gap-x-1 px-0 ml-0">
+                  <SidebarMenuButton tooltip={item.title}>
                     {item.icon && <item.icon width={"1rem"} />}
                     <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             );
           }

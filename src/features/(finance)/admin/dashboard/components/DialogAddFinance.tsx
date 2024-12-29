@@ -1,4 +1,5 @@
 import SelectComponent from "@/features/(finance)/commons/components/SelectComponent";
+import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
 import { useGetCategories } from "@/features/(finance)/commons/hooks/useGetCategories";
 import { useGetTypeTransactions } from "@/features/(finance)/commons/hooks/useGetTypeTransactions";
 import { createFinanceLog } from "@/features/(finance)/commons/services/financeLog";
@@ -32,6 +33,7 @@ const initialForm = {
 
 const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState(initialForm);
   const [loadingForm, setLoadingForm] = useState(false);
@@ -81,6 +83,7 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
         typeRef: typeTransactionValue,
         amount: +formData.amount.replace(/[^\d]/g, ""),
         createdAt: new Date(),
+        userRef: user?.id || "",
       };
 
       await createFinanceLog(payload);

@@ -1,39 +1,25 @@
 import { fetchFinanceLog } from "@/features/(finance)/commons/services/financeLog";
 import { FinanceLog } from "@/features/(finance)/commons/types/finance/financeLog";
-import { dummyFinances } from "@/features/(finance)/commons/utils/constants/dummyTransaction";
 import { formattedDateFirebase } from "@/features/(finance)/commons/utils/functions/formattedDateFirebase";
 import { Button } from "@/features/commons/components/ui/button";
 import { Card, CardContent } from "@/features/commons/components/ui/card";
-import { useToast } from "@/features/commons/hooks/use-toast";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import DialogAddFinance from "./DialogAddFinance";
+import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
+import useFetchData from "@/features/(finance)/commons/hooks/useFetchData";
 
 const Top10Transaction: FC = () => {
-  const { toast } = useToast();
+  const { user } = useAuth();
   // State untuk menyimpan data transaksi
-  const [data, setData] = useState<FinanceLog[]>(dummyFinances); // Default menggunakan dummy data
-  const [isLoading, setIsLoading] = useState(false); // Untuk indikasi loading
+  const [data, setData] = useState<FinanceLog[]>([]); // Default menggunakan dummy data
   const [isOpenAddDialog, SetIsOpenAddDialog] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const fetchedData = await fetchFinanceLog(10);
-        setData(fetchedData);
-      } catch (error) {
-        toast({
-          variant: "destructive",
-          title: "Opps! Something wrong...",
-          description: String(error),
-        });
-      } finally {
-        setIsLoading(false); // Akhiri loading
-      }
-    };
-
-    fetchData();
-  }, []); // Dijalankan saat komponen pertama kali di-render
+  // Dijalankan saat komponen pertama kali di-render
+  const { isLoading } = useFetchData({
+    data: data,
+    setData: setData,
+    fetch: async () => await fetchFinanceLog(user?.id || "", 10),
+  });
 
   return (
     <>
@@ -46,29 +32,31 @@ const Top10Transaction: FC = () => {
             </Button>
           </div>
 
-          {isLoading ? ( // Jika sedang loading, tampilkan indikator loading
-            <p>Loading...</p>
+          {isLoading ? (
+            <p>Loading..</p>
+          ) : !data.length ? ( // Jika sedang loading, tampilkan indikator loading
+            <p>data is</p>
           ) : (
             <div className="overflow-hidden w-full">
-              <table className="min-w-full table-fixed border-collapse border border-gray-300">
-                <thead className="bg-gray-100">
+              <table className="min-w-full table-fixed border-collapse border border-gray-100 dark:border-gray-900">
+                <thead className="bg-primary dark:bg-secondary">
                   <tr>
-                    <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">
+                    <th className="p-2 text-left text-sm font-medium border border-gray-100 dark:border-gray-900">
                       ID
                     </th>
-                    <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">
+                    <th className="p-2 text-left text-sm font-medium border border-gray-100 dark:border-gray-900">
                       Date
                     </th>
-                    <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">
+                    <th className="p-2 text-left text-sm font-medium border border-gray-100 dark:border-gray-900">
                       Name
                     </th>
-                    <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">
+                    <th className="p-2 text-left text-sm font-medium border border-gray-100 dark:border-gray-900">
                       Amount
                     </th>
-                    <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">
+                    <th className="p-2 text-left text-sm font-medium border border-gray-100 dark:border-gray-900">
                       Category
                     </th>
-                    <th className="p-2 text-left text-sm font-medium text-gray-600 border border-gray-300">
+                    <th className="p-2 text-left text-sm font-medium border border-gray-100 dark:border-gray-900">
                       Transaction
                     </th>
                   </tr>
@@ -77,24 +65,22 @@ const Top10Transaction: FC = () => {
                   {data.map((transaction, index) => (
                     <tr
                       key={transaction.id}
-                      className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                      className={`${
+                        index % 2 === 0
+                          ? "bg-white dark:bg-background"
+                          : "bg-gray-50 dark:bg-slate-800"
+                      }`}
                     >
-                      <td className="p-2 text-sm text-gray-800 border border-gray-300">
-                        {++index}
-                      </td>
-                      <td className="p-2 text-sm text-gray-800 border border-gray-300">
+                      <td className="p-2 text-sm ">{++index}</td>
+                      <td className="p-2 text-sm ">
                         {formattedDateFirebase(transaction.createdAt)}
                       </td>
-                      <td className="p-2 text-sm text-gray-800 border border-gray-300">
-                        {transaction.name}
-                      </td>
-                      <td className="p-2 text-sm text-gray-800 border border-gray-300">
-                        {transaction.amount}
-                      </td>
-                      <td className="p-2 text-sm text-gray-800 border border-gray-300">
+                      <td className="p-2 text-sm ">{transaction.name}</td>
+                      <td className="p-2 text-sm ">{transaction.amount}</td>
+                      <td className="p-2 text-sm ">
                         {transaction.category.name}
                       </td>
-                      <td className="p-2 text-sm text-gray-800 border border-gray-300">
+                      <td className="p-2 text-sm ">
                         {transaction.typeTransaction.name}
                       </td>
                     </tr>

@@ -35,9 +35,9 @@ const FinanceNavbar = () => {
         <Link to={"/finance"}>
           <h1>Logo</h1>
         </Link>
-        <div className="space-x-2">
-          <ChangeThemeButton />
+        <div className="space-x-2 flex items-center">
           <MenuNavbar user={user} logoutFn={logout} />
+          <ChangeThemeButton />
         </div>
       </nav>
 

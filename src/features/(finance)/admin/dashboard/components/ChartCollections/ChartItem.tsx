@@ -31,7 +31,11 @@ const ChartItem: FC<ChartItemProps> = memo(
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
-            <BarChart accessibilityLayer data={data}>
+            <BarChart
+              accessibilityLayer
+              data={data}
+              key={`${title}-${data.length}`}
+            >
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"
@@ -50,7 +54,12 @@ const ChartItem: FC<ChartItemProps> = memo(
               <ChartLegend content={<ChartLegendContent />} />
 
               {keys.map((key) => (
-                <Bar dataKey={key} fill={`var(--color-${key})`} radius={4} />
+                <Bar
+                  dataKey={key}
+                  fill={`var(--color-${key})`}
+                  radius={4}
+                  key={key}
+                />
               ))}
             </BarChart>
           </ChartContainer>

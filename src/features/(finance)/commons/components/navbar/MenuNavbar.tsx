@@ -6,7 +6,6 @@
 //   DropdownMenuSeparator,
 //   DropdownMenuTrigger,
 // } from "@/features/commons/components/ui/dropdown-menu";
-import { Button } from "@/features/commons/components/ui/button";
 import { Link } from "react-router-dom";
 import { FC, memo } from "react";
 import { UserDisplay } from "../../types/user";
@@ -20,7 +19,9 @@ const MenuNavbar: FC<MenuNavbarProps> = memo(({ user }) => {
   return (
     <>
       {user ? (
-        <Button>{user.displayName}</Button>
+        <div className="px-4 py-2 border border-white rounded-lg text-white select-none">
+          <span>Hello {user.displayName}</span>
+        </div>
       ) : (
         <Link to={"/finance/sign-in"}>
           <p>Sign in</p>

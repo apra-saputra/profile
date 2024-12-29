@@ -6,4 +6,5 @@ export interface CreateFinance {
   name: string;
   desc?: string;
   amount: number;
+  userRef: string;
 }

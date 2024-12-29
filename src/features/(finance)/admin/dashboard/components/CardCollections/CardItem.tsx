@@ -3,13 +3,13 @@ import {
   CardContent,
   CardFooter,
 } from "@/features/commons/components/ui/card";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 interface CardItemProps {
   title: string;
   value: string;
   additionalInfo?: string;
-  icon: JSX.Element;
+  icon: ReactNode;
 }
 
 const CardItem: FC<CardItemProps> = ({
@@ -19,7 +19,7 @@ const CardItem: FC<CardItemProps> = ({
   icon,
 }) => {
   return (
-    <Card className="bg-secondary/50 min-h-[140px] min-w-[250px]">
+    <Card className="bg-secondary/80 min-h-[140px] min-w-[250px]">
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-x-6">
           {icon}
