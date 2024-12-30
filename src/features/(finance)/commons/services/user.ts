@@ -11,8 +11,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import GlobalError from "@/libs/globalError";
+import * as bcrypt from "bcryptjs";
 
-export const registerUser = async (user: User) => {
+export const registerUser = async (user: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
   try {
     // Mendaftarkan pengguna menggunakan Firebase Authentication
     const userCredential = await createUserWithEmailAndPassword(
@@ -24,17 +29,22 @@ export const registerUser = async (user: User) => {
     const firebaseUser = userCredential.user;
 
     // Menambahkan nama tampilan pengguna ke Firebase Authentication
-    if (user.displayName) {
-      await updateProfile(firebaseUser, { displayName: user.displayName });
+    if (userCredential.user.displayName) {
+      await updateProfile(firebaseUser, {
+        displayName: user.name,
+      });
     }
 
     // Menyimpan data tambahan ke Firestore
     const userRef = doc(db, "users", firebaseUser.uid);
     const userPayload = {
-      displayName: user.displayName,
-      email: user.email,
-      role: user.role || "user", // Set default role
-      createdAt: new Date(),
+      displayName: user.name,
+      email: firebaseUser.email,
+      role: "user", // Set default role
+      photoURL: firebaseUser.photoURL,
+      password: bcrypt.hashSync(user.password, 10),
+      createdAt: firebaseUser.metadata.creationTime || new Date(),
+      lastLoginAt: firebaseUser.metadata.lastSignInTime || new Date(),
     };
     await setDoc(userRef, userPayload);
 
@@ -42,10 +52,10 @@ export const registerUser = async (user: User) => {
 
     return {
       id: firebaseUser.uid,
-      displayName: firebaseUser.displayName || "",
-      email: firebaseUser.email || "",
-      photoURL: firebaseUser.photoURL || "",
-      createdAt: new Date(), // Menggunakan createdAt dari Firestore
+      displayName: userPayload.displayName || "",
+      email: userPayload.email || "",
+      photoURL: userPayload.photoURL || "",
+      createdAt: userPayload.createdAt, // Menggunakan createdAt dari Firestore
       role: userPayload.role as "user" | "admin", // Validasi role yang diterima
       token,
     } as Omit<User, "password"> & { token: string };
@@ -81,7 +91,7 @@ export const loginUser = async ({ email, password }: UserFormEmailPassword) => {
       displayName: firebaseUser.displayName || "", // Jika tidak ada displayName
       email: firebaseUser.email || "", // Jika tidak ada email
       photoURL: firebaseUser.photoURL || "", // Jika tidak ada photoURL
-      createdAt: userData.createdAt.toDate() || new Date(), // Pastikan formatnya sesuai
+      createdAt: userData.createdAt || new Date(), // Pastikan formatnya sesuai
       password: password, // Tidak menyarankan menyimpan password di output, gunakan untuk validasi login
       role: userData.role as "user" | "admin", // Role harus valid
       token: token,

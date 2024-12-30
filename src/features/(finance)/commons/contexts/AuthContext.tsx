@@ -10,7 +10,7 @@ import React, {
 import Cookies from "js-cookie";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/libs/firebase/firebase";
-import { User, UserDisplay, UserFormEmailPassword } from "../types/user";
+import { UserDisplay, UserFormEmailPassword } from "../types/user";
 import {
   loginUser,
   loginWithGoogleAndSaveToFirestore,
@@ -28,7 +28,11 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (userData: UserFormEmailPassword) => Promise<void>;
   logout: () => Promise<void>;
-  register: (userData: User) => Promise<void>;
+  register: (userData: {
+    email: string;
+    name: string;
+    password: string;
+  }) => Promise<void>;
   loginWithProvider: () => Promise<void>;
 }
 
@@ -57,6 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // Simpan token di cookies
     Cookies.set("accessToken", user.token, { expires: 7 });
+    navigate("admin");
   };
 
   const logout = async () => {
@@ -71,13 +76,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const register = async (userData: User) => {
+  const register = async (userData: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     try {
       const { token, ...user } = await registerUser(userData);
 
       setUser(user);
       setAccessToken(token);
       Cookies.set("accessToken", token, { expires: 7 });
+      navigate("admin");
     } catch (error) {
       throw new GlobalError(error);
     }
@@ -117,17 +127,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           logout();
         }
       });
-
-      // Alternatif: Fetch data user dari backend
-      // fetch("/api/user", {
-      //   headers: { Authorization: `Bearer ${accessToken}` },
-      // })
-      //   .then((res) => {
-      //     if (res.ok) return res.json();
-      //     throw new Error("Failed to fetch user");
-      //   })
-      //   .then((userData: User) => setUser(userData))
-      //   .catch(() => logout());
     }
   }, [accessToken, user]);
 

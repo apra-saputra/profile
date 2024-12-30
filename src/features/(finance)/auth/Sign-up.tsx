@@ -12,11 +12,11 @@ import { useToast } from "@/features/commons/hooks/use-toast";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Separator } from "@/features/commons/components/ui/separator";
 import GoogleSignIn from "./components/GoogleSignInButton";
-import useSignUp from "./hooks/useSignUp";
+import { useAuth } from "../commons/contexts/AuthContext";
 
 export default function SignUpPage() {
   const { toast } = useToast();
-  const { signUp } = useSignUp();
+  const { register } = useAuth();
 
   const [signUpPayload, setSignUpPayload] = useState({
     name: "",
@@ -34,12 +34,12 @@ export default function SignUpPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await signUp(signUpPayload.email, signUpPayload.password);
-    } catch (error) {
+      await register(signUpPayload);
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Oopss! Something wrong.",
-        description: JSON.stringify(error),
+        description: error.message || JSON.stringify(error),
       });
     } finally {
       setLoading(false);

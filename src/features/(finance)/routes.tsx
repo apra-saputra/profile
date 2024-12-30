@@ -4,8 +4,10 @@ import SignInPage from "@/features/(finance)/auth/Sign-in";
 // import SignUpPage from "@/features/(finance)/auth/Sign-up";
 import FinanceLayout from "@/features/(finance)/Layout";
 import AdminFinance from "./admin";
-import { protectedRouteLoader } from "./commons/utils/protectedLoader";
-// import AdminLayout from "./AdminLayout";
+import {
+  hasSignIn,
+  protectedRouteLoader,
+} from "./commons/utils/protectedLoader";
 import ComingSoonPage from "../ComingSoonPage";
 
 const FinanceHome = lazy(() => import("@/features/(finance)"));
@@ -24,8 +26,8 @@ const financeRoute: RouteObject = {
       path: "",
       element: <FinanceHome />,
     },
-    { path: "sign-in", element: <SignInPage /> },
-    { path: "sign-up", element: <ComingSoonPage /> },
+    { path: "sign-in", element: <SignInPage />, loader: hasSignIn },
+    // { path: "sign-up", loader: protectedRouteLoader, element: <SignUpPage /> },
     {
       path: "admin",
       loader: protectedRouteLoader,

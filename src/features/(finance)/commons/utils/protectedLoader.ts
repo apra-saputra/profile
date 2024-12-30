@@ -27,3 +27,11 @@ export const protectedRouteLoader = async () => {
   }
   return null;
 };
+
+export const hasSignIn = () => {
+  const accesstoken = Cookies.get("accessToken");
+
+  if (!accesstoken) return null;
+
+  return redirect("/finance/admin");
+};
