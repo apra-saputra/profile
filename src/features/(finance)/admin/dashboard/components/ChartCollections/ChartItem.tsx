@@ -14,16 +14,18 @@ import {
   CardTitle,
 } from "@/features/commons/components/ui/card";
 import { FC, memo, useMemo, useState } from "react";
+import { Skeleton } from "@/features/commons/components/ui/skeleton";
 
 interface ChartItemProps {
   data: any[];
   chartConfig: ChartConfig;
   keys: string[];
   title: string;
+  isLoading: boolean;
 }
 
 const ChartItem: FC<ChartItemProps> = memo(
-  ({ data, chartConfig, keys, title }) => {
+  ({ data, chartConfig, keys, title, isLoading }) => {
     const [activeIndex, setActiveIndex] = useState<number | undefined>(
       undefined
     );
@@ -37,12 +39,28 @@ const ChartItem: FC<ChartItemProps> = memo(
         return data.filter((_, i) => i === activeIndex);
       }
       return data;
-    }, [activeIndex]);
+    }, [activeIndex, data.length]);
+
+    if (isLoading) {
+      return (
+        <Card>
+          <CardHeader className="items-center">
+            <Skeleton className="w-1/3 h-10" />
+          </CardHeader>
+          <CardContent className="grid grid-cols-4 items-center gap-4">
+            <Skeleton className="h-[300px]" />
+            <Skeleton className="h-[300px]" />
+            <Skeleton className="h-[300px]" />
+            <Skeleton className="h-[300px]" />
+          </CardContent>
+        </Card>
+      );
+    }
 
     return (
       <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
+        <CardHeader className="items-center">
+          <CardTitle>{title} - {new Date().getFullYear()}</CardTitle>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
@@ -68,7 +86,7 @@ const ChartItem: FC<ChartItemProps> = memo(
                 axisLine={false}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />}  />
+              <ChartLegend content={<ChartLegendContent />} />
 
               {keys.map((key) => (
                 <Bar

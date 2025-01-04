@@ -181,3 +181,18 @@ const groupingDataBaseOnCategory = async (financeLog: FinanceLog[]) => {
 
   return payload;
 };
+
+export const fetchTop10Logs = async (userRef: string) => {
+  try {
+    const logs = await fetchFinanceLog({
+      userRef,
+      limit: 10,
+      orderByField: ["amount", "createdAt"],
+      orderDirection: ["desc", "desc"],
+    });
+
+    return logs;
+  } catch (error) {
+    throw new GlobalError(error);
+  }
+};

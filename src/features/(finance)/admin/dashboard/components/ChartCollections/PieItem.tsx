@@ -11,6 +11,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/features/commons/components/ui/chart";
+import { Skeleton } from "@/features/commons/components/ui/skeleton";
 import { FC, useMemo } from "react";
 import { Label, Pie, PieChart } from "recharts";
 
@@ -19,12 +20,38 @@ interface PieItemProps {
   chartConfig: ChartConfig;
   title: string;
   keys: string[];
+  isLoading: boolean;
 }
 
-const PieItem: FC<PieItemProps> = ({ data, title, chartConfig, keys }) => {
+const PieItem: FC<PieItemProps> = ({
+  data,
+  title,
+  chartConfig,
+  keys,
+  isLoading,
+}) => {
   const totalMoney = useMemo(() => {
     return data.reduce((acc, curr) => acc + curr.value, 0);
   }, [data.length]);
+
+  if (isLoading) {
+    return (
+      <Card className="flex flex-col gap-4">
+        <CardHeader className="items-center">
+          <Skeleton className="w-1/3 h-10" />
+        </CardHeader>
+        <CardContent className="grid grid-cols-3 items-center h-full">
+          <div className="space-y-4">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[250px]" />
+          </div>
+
+          <Skeleton className="h-full rounded-full mx-auto aspect-square col-span-2" />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="flex flex-col">
@@ -37,11 +64,13 @@ const PieItem: FC<PieItemProps> = ({ data, title, chartConfig, keys }) => {
             {keys.map((key, index) => (
               <tr
                 key={index}
-                className={`${index % 2 === 0 ? "bg-slate-200 dark:bg-slate-700" : "bg-gray-50 dark:bg-gray-700"}`}
+                className={`${
+                  index % 2 === 0
+                    ? "bg-slate-200 dark:bg-slate-700"
+                    : "bg-gray-50 dark:bg-gray-700"
+                }`}
               >
-                <td className="p-2 text-sm">
-                  {key}
-                </td>
+                <td className="p-2 text-sm">{key}</td>
               </tr>
             ))}
           </tbody>
@@ -59,7 +88,6 @@ const PieItem: FC<PieItemProps> = ({ data, title, chartConfig, keys }) => {
               data={data}
               dataKey="value"
               nameKey="name"
-              
               innerRadius={80}
               outerRadius={120}
               strokeWidth={20}

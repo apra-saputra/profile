@@ -36,24 +36,24 @@ export const navigation: NavigationType = {
     lable: "Navigation",
     menu: [
       {
-        title: "Main",
-        url: "/finance/admin",
+        title: "Dashboard",
+        url: "/finance/admin/dashboard",
         icon: Trello,
         isActive: true,
-        items: [
-          {
-            title: "Dashboard",
-            url: "/finance/admin/dashboard",
-          },
-          // {
-          //   title: "Starred",
-          //   url: "#",
-          // },
-          // {
-          //   title: "Settings",
-          //   url: "#",
-          // },
-        ],
+        // items: [
+        //   {
+        //     title: "Main",
+        //     url: "/finance/admin/dashboard",
+        //   },
+        //   // {
+        //   //   title: "Starred",
+        //   //   url: "#",
+        //   // },
+        //   // {
+        //   //   title: "Settings",
+        //   //   url: "#",
+        //   // },
+        // ],
       },
       {
         title: "Report Finance",

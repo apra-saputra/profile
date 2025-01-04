@@ -1,4 +1,3 @@
-import { fetchFinanceLog } from "@/features/(finance)/commons/services/financeLog";
 import { FinanceLog } from "@/features/(finance)/commons/types/finance/financeLog";
 import { formattedDateFirebase } from "@/features/(finance)/commons/utils/functions/formattedDateFirebase";
 import { Button } from "@/features/commons/components/ui/button";
@@ -8,6 +7,9 @@ import DialogAddFinance from "./DialogAddFinance";
 import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
 import useFetchData from "@/features/(finance)/commons/hooks/useFetchData";
 import { formatCurrency } from "@/features/(finance)/commons/utils/functions/formatCurrency";
+import { PlusCircle } from "lucide-react";
+import { getThisMonth } from "@/features/(finance)/commons/utils/functions/getMonthList";
+import { fetchTop10Logs } from "@/features/(finance)/commons/services/dashboard";
 
 const Top10Transaction: FC = () => {
   const { user } = useAuth();
@@ -20,8 +22,7 @@ const Top10Transaction: FC = () => {
     {
       data: data,
       setData: setData,
-      fetch: async () =>
-        await fetchFinanceLog({ userRef: user?.id || "", limit: 10 }),
+      fetch: async () => await fetchTop10Logs(user?.id || ""),
     },
     [isOpenAddDialog]
   );
@@ -31,9 +32,12 @@ const Top10Transaction: FC = () => {
       <Card className="w-full">
         <CardContent className="min-h-[400px] space-y-4 py-2 w-full overflow-x-auto">
           <div className="flex items-center justify-between w-full">
-            <h2 className="text-lg font-semibold">Top 10 Transactions</h2>
+            <h2 className="text-lg font-semibold">
+              Top 10 Transactions - {getThisMonth()}
+            </h2>
             <Button onClick={() => SetIsOpenAddDialog((state) => !state)}>
-              plus
+              <PlusCircle />
+              Tambah Pengeluaran
             </Button>
           </div>
 

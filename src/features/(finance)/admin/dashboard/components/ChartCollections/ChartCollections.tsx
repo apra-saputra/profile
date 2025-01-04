@@ -34,13 +34,13 @@ const ChartCollections = () => {
   const [pieData, setPieData] = useState<{ name: string; value: number }[]>([]);
 
   // fetch
-  useFetchData({
+  const { isLoading: pieLoading } = useFetchData({
     data: pieData,
     setData: setPieData,
     fetch: async () => await fetchPieData(user?.id || ""),
   });
 
-  useFetchData({
+  const { isLoading: chartLoading } = useFetchData({
     data: chartData,
     setData: setChartData,
     fetch: async () => await fetchChartData(user?.id || ""),
@@ -95,12 +95,14 @@ const ChartCollections = () => {
         chartConfig={chartConfig}
         keys={chartKeys}
         title="Chart Data"
+        isLoading={chartLoading}
       />
       <PieItem
         data={pieData}
         chartConfig={pieConfig}
         title="Pie Data"
         keys={pieKeys}
+        isLoading={pieLoading}
       />
     </div>
   );

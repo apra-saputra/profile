@@ -18,7 +18,7 @@ const CardCollections = () => {
 
   const [data, setData] = useState<DataBanner[]>([]);
 
-  useFetchData({
+  const { isLoading } = useFetchData({
     data: data,
     setData: setData,
     fetch: async () => {
@@ -57,6 +57,7 @@ const CardCollections = () => {
           additionalInfo={el.additionalInfo}
           icon={el.icon}
           key={el.title}
+          isLoading={isLoading}
         />
       ))}
     </div>

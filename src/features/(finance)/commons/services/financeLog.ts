@@ -7,7 +7,9 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
+  QueryConstraint,
   limit as queryLimit,
   where,
 } from "firebase/firestore";
@@ -21,12 +23,16 @@ export const fetchFinanceLog = async ({
   date = new Date(),
   startDate,
   endDate,
+  orderByField = null, 
+  orderDirection = ['asc']
 }: {
   userRef: string;
   limit: number;
   date?: Date;
   startDate?: Date;
   endDate?: Date;
+  orderByField?: string | string[] | null;
+  orderDirection?: Array<'asc' | 'desc'>;
 }) => {
   try {
     // Referensi koleksi Firestore
@@ -39,14 +45,28 @@ export const fetchFinanceLog = async ({
     const startQueryDate = startDate ? startDate : startOfMonth(date);
     const endQueryDate = endDate ? endDate : endOfMonth(date);
 
-    // Buat query dengan batasan limit
-    const financeQuery = query(
-      financeRef,
+    const queryConstraints: QueryConstraint[] = [
       where("createdAt", ">=", startQueryDate.toISOString()),
       where("createdAt", "<=", endQueryDate.toISOString()),
       where("userRef", "==", userDocRef),
-      queryLimit(limit)
-    );
+      queryLimit(limit),
+    ];
+
+    // Tambahkan orderBy ke dalam database jika ditentukan
+    if (orderByField) {
+      if (Array.isArray(orderByField)) {
+        orderByField.forEach((field, index) => {
+          const direction = orderDirection[index] || 'asc'; // Default ke 'asc' jika tidak ada
+          queryConstraints.push(orderBy(field, direction));
+        });
+      } else {
+        const direction = orderDirection[0] || 'asc'; // Default ke 'asc' jika tidak ada
+        queryConstraints.push(orderBy(orderByField, direction));
+      }
+    }
+
+    // Buat query dengan batasan limit
+    const financeQuery = query(financeRef, ...queryConstraints);
 
     // Eksekusi query untuk mendapatkan dokumen
     const querySnapshot = await getDocs(financeQuery);
@@ -84,9 +104,7 @@ export const fetchFinanceLog = async ({
 
     return financeLogs as FinanceLog[];
   } catch (error: any) {
-    // Tangani error menggunakan GlobalError
-    console.log(error);
-    throw new GlobalError(error.message || "Failed to fetch finance logs");
+    throw new GlobalError(error);
   }
 };
 

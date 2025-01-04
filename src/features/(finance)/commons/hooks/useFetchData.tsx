@@ -9,41 +9,35 @@ interface UseFetchDataProps<T> {
 }
 
 const useFetchData = (
-  { data, setData, fetch }: UseFetchDataProps<any>,
+  { setData, fetch }: UseFetchDataProps<any>,
   dependencies: Array<string | number | boolean> = []
 ) => {
   const { user } = useAuth();
   const { toast } = useToast();
-
   const [isLoading, setIsLoading] = useState(false);
 
-  let isObject = false,
-    isArray = false;
-  if (typeof data === "object") isObject = true;
-
-  if (Array.isArray(data)) isArray = true;
-
   useEffect(() => {
-    if (user?.id && ((isArray && data.length) || (isObject && data))) {
-      const fetchData = async () => {
-        setIsLoading(true);
-        try {
-          const fetchedData = await fetch();
-          setData(fetchedData);
-        } catch (error) {
-          toast({
-            variant: "destructive",
-            title: "Opps! Something wrong...",
-            description: String(error),
-          });
-        } finally {
-          setIsLoading(false);
-        }
-      };
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const fetchedData = await fetch();
+        setData(fetchedData);
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Opps! Something wrong...",
+          description: String(error),
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+    if (user?.id) { // Tetap fetch jika user ada
       fetchData();
     }
-  }, [isArray && data.length, user?.id, ...dependencies]);
+  }, [user?.id, ...dependencies]);
+
   return { isLoading };
 };
 
