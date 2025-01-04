@@ -3,7 +3,7 @@ import { Button } from "@/features/commons/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Separator } from "./commons/components/ui/separator";
 
-const NotFound = () => {
+export default () => {
   const navigate = useNavigate();
   return (
     <section className="w-full h-screen">
@@ -26,13 +26,9 @@ const NotFound = () => {
           onClick={() => navigate("/")}
         >
           <FaHouse />
-          <span className="tracking-[0.25rem] text-sm">
-            Back to home
-          </span>
+          <span className="tracking-[0.25rem] text-sm">Back to home</span>
         </Button>
       </div>
     </section>
   );
 };
-
-export default NotFound;

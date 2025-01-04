@@ -7,6 +7,7 @@ import { FC, useState } from "react";
 import DialogAddFinance from "./DialogAddFinance";
 import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
 import useFetchData from "@/features/(finance)/commons/hooks/useFetchData";
+import { formatCurrency } from "@/features/(finance)/commons/utils/functions/formatCurrency";
 
 const Top10Transaction: FC = () => {
   const { user } = useAuth();
@@ -15,11 +16,15 @@ const Top10Transaction: FC = () => {
   const [isOpenAddDialog, SetIsOpenAddDialog] = useState(false);
 
   // Dijalankan saat komponen pertama kali di-render
-  const { isLoading } = useFetchData({
-    data: data,
-    setData: setData,
-    fetch: async () => await fetchFinanceLog(user?.id || "", 10),
-  });
+  const { isLoading } = useFetchData(
+    {
+      data: data,
+      setData: setData,
+      fetch: async () =>
+        await fetchFinanceLog({ userRef: user?.id || "", limit: 10 }),
+    },
+    [isOpenAddDialog]
+  );
 
   return (
     <>
@@ -76,7 +81,9 @@ const Top10Transaction: FC = () => {
                         {formattedDateFirebase(transaction.createdAt)}
                       </td>
                       <td className="p-2 text-sm ">{transaction.name}</td>
-                      <td className="p-2 text-sm ">{transaction.amount}</td>
+                      <td className="p-2 text-sm ">
+                        {formatCurrency(transaction.amount)}
+                      </td>
                       <td className="p-2 text-sm ">
                         {transaction.category.name}
                       </td>

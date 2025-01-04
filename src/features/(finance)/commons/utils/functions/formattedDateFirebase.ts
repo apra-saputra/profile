@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 
-export const formattedDateFirebase = (date: Timestamp) => {
+export const formattedDateFirebase = (date: Timestamp | Date) => {
   try {
     // Pastikan objek Timestamp valid
     const validDate =
