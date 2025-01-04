@@ -13,9 +13,9 @@ import ComingSoonPage from "../ComingSoonPage";
 const FinanceHome = lazy(() => import("@/features/(finance)"));
 const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
 // const UserSetting = lazy(() => import("@/features/(finance)/admin/setting"));
-// const FinanceTable = lazy(
-//   () => import("@/features/(finance)/admin/financeTable")
-// );
+const FinanceTable = lazy(
+  () => import("@/features/(finance)/admin/financeTable")
+);
 // const Note = lazy(() => import("@/features/(finance)/admin/note"));
 
 const financeRoute: RouteObject = {
@@ -26,7 +26,7 @@ const financeRoute: RouteObject = {
       path: "",
       element: <FinanceHome />,
     },
-    { path: "sign-in", element: <SignInPage />, loader: hasSignIn },
+    { path: "sign-in", element: <SignInPage />, loader: hasSignIn, },
     // { path: "sign-up", loader: protectedRouteLoader, element: <SignUpPage /> },
     {
       path: "admin",
@@ -42,7 +42,7 @@ const financeRoute: RouteObject = {
         },
         {
           path: "report",
-          element: <ComingSoonPage />,
+          element: <FinanceTable />,
         },
         {
           path: "report/create",
