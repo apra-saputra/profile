@@ -22,7 +22,7 @@ const CardCollections = () => {
     data: data,
     setData: setData,
     fetch: async () => {
-      const fetchedData = await fetchBanners(user?.id || ""),
+      const fetchedData = await fetchBanners({ userRef: user?.id || "" }),
         payload: DataBanner[] = [];
 
       payload.push({

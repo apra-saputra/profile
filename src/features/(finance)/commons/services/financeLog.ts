@@ -15,11 +15,19 @@ import { FinanceLog } from "../types/finance/financeLog";
 import { CreateFinance } from "../types/finance/create";
 import { FirebaseServiceError } from "@/libs/firebase/errorFirebase";
 
-export const fetchFinanceLog = async (
-  userRef: string,
-  limit: number = 10,
-  date = new Date()
-) => {
+export const fetchFinanceLog = async ({
+  userRef,
+  limit = 10,
+  date = new Date(),
+  startDate,
+  endDate,
+}: {
+  userRef: string;
+  limit: number;
+  date?: Date;
+  startDate?: Date;
+  endDate?: Date;
+}) => {
   try {
     // Referensi koleksi Firestore
     const financeRef = collection(db, "financeLog");
@@ -28,14 +36,14 @@ export const fetchFinanceLog = async (
     const userDocRef = doc(db, "users", userRef);
 
     // Calculate the start and end of the current month
-    const startDate = startOfMonth(date);
-    const endDate = endOfMonth(date);
+    const startQueryDate = startDate ? startDate : startOfMonth(date);
+    const endQueryDate = endDate ? endDate : endOfMonth(date);
 
     // Buat query dengan batasan limit
     const financeQuery = query(
       financeRef,
-      where("createdAt", ">=", startDate.toISOString()),
-      where("createdAt", "<=", endDate.toISOString()),
+      where("createdAt", ">=", startQueryDate.toISOString()),
+      where("createdAt", "<=", endQueryDate.toISOString()),
       where("userRef", "==", userDocRef),
       queryLimit(limit)
     );

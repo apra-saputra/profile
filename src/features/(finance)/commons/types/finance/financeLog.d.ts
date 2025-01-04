@@ -4,7 +4,7 @@ import { CategoryCredit } from "./category";
 export interface FinanceLog {
   amount: number;
   category: CategoryCredit;
-  createdAt: Timestamp;
+  createdAt: Date;
   desc: string;
   id: string;
   name: string;

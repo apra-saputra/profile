@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/features/commons/components/ui/card";
-import { FC, memo } from "react";
+import { FC, memo, useMemo, useState } from "react";
 
 interface ChartItemProps {
   data: any[];
@@ -24,6 +24,21 @@ interface ChartItemProps {
 
 const ChartItem: FC<ChartItemProps> = memo(
   ({ data, chartConfig, keys, title }) => {
+    const [activeIndex, setActiveIndex] = useState<number | undefined>(
+      undefined
+    );
+
+    const onClick = (idx: number | undefined) => {
+      setActiveIndex((state) => (!state && state !== idx ? idx : undefined));
+    };
+
+    const dataMemomize = useMemo(() => {
+      if (activeIndex !== undefined) {
+        return data.filter((_, i) => i === activeIndex);
+      }
+      return data;
+    }, [activeIndex]);
+
     return (
       <Card>
         <CardHeader>
@@ -33,8 +48,10 @@ const ChartItem: FC<ChartItemProps> = memo(
           <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
             <BarChart
               accessibilityLayer
-              data={data}
+              title={title}
+              data={dataMemomize}
               key={`${title}-${data.length}`}
+              onClick={(e) => onClick(e.activeTooltipIndex)}
             >
               <CartesianGrid vertical={false} />
               <XAxis
@@ -45,17 +62,17 @@ const ChartItem: FC<ChartItemProps> = memo(
                 tickFormatter={(value) => value.slice(0, 3)}
               />
               <YAxis
-                dataKey="desktop"
+                dataKey="highest.value"
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />} />
+              <ChartLegend content={<ChartLegendContent />}  />
 
               {keys.map((key) => (
                 <Bar
-                  dataKey={key}
+                  dataKey={`${key}.value`}
                   fill={`var(--color-${key})`}
                   radius={4}
                   key={key}

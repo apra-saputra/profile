@@ -1,33 +1,20 @@
 import { ChartConfig } from "@/features/commons/components/ui/chart";
-import { Monitor, Smartphone } from "lucide-react";
+import { ChartColumnDecreasing, ChartColumnIncreasing } from "lucide-react";
 import ChartItem from "./ChartItem";
 import PieItem from "./PieItem";
-import { useMemo, useState } from "react";
-import { fetchPieData } from "@/features/(finance)/commons/services/dashboard";
+import { ComponentType, useMemo, useState } from "react";
+import {
+  fetchChartData,
+  fetchPieData,
+} from "@/features/(finance)/commons/services/dashboard";
 import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
 import useFetchData from "@/features/(finance)/commons/hooks/useFetchData";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--accent))",
-    icon: Monitor,
-  },
-  mobile: {
-    icon: Smartphone,
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
+type ChartConfigItem = {
+  color: string;
+  label: string;
+  icon: ComponentType;
+};
 
 const colors = [
   "hsl(var(--chart-1))",
@@ -40,6 +27,9 @@ const colors = [
 const ChartCollections = () => {
   const { user } = useAuth();
 
+  // chart data
+  const [chartData, setChartData] = useState([]);
+
   // pie data
   const [pieData, setPieData] = useState<{ name: string; value: number }[]>([]);
 
@@ -48,6 +38,12 @@ const ChartCollections = () => {
     data: pieData,
     setData: setPieData,
     fetch: async () => await fetchPieData(user?.id || ""),
+  });
+
+  useFetchData({
+    data: chartData,
+    setData: setChartData,
+    fetch: async () => await fetchChartData(user?.id || ""),
   });
 
   const { pieConfig, pieKeys } = useMemo(() => {
@@ -69,12 +65,35 @@ const ChartCollections = () => {
     return { pieConfig: category satisfies ChartConfig, pieKeys: keys };
   }, [pieData.length]);
 
+  const { chartConfig, chartKeys } = useMemo(() => {
+    let chartConfig: Record<string, ChartConfigItem> = {},
+      keys: string[] = [];
+
+    if (chartData.length > 0) {
+      Object.keys(chartData[0])
+        .filter((el) => el !== "month")
+        .forEach((key, i) => {
+          const index = i % 5;
+
+          chartConfig[key] = {
+            color: colors[index],
+            label: key,
+            icon:
+              key === "highest" ? ChartColumnIncreasing : ChartColumnDecreasing,
+          };
+          keys.push(key);
+        });
+    }
+
+    return { chartConfig: chartConfig satisfies ChartConfig, chartKeys: keys };
+  }, [chartData.length]);
+
   return (
     <div className="grid auto-rows-min gap-4 md:grid-cols-2">
       <ChartItem
         data={chartData}
         chartConfig={chartConfig}
-        keys={Object.keys(chartConfig)}
+        keys={chartKeys}
         title="Chart Data"
       />
       <PieItem

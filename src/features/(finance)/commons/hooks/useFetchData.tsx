@@ -8,7 +8,10 @@ interface UseFetchDataProps<T> {
   fetch: () => Promise<T>;
 }
 
-const useFetchData = ({ data, setData, fetch }: UseFetchDataProps<any>) => {
+const useFetchData = (
+  { data, setData, fetch }: UseFetchDataProps<any>,
+  dependencies: Array<string | number | boolean> = []
+) => {
   const { user } = useAuth();
   const { toast } = useToast();
 
@@ -40,7 +43,7 @@ const useFetchData = ({ data, setData, fetch }: UseFetchDataProps<any>) => {
 
       fetchData();
     }
-  }, [isArray && data.length, user?.id]);
+  }, [isArray && data.length, user?.id, ...dependencies]);
   return { isLoading };
 };
 
