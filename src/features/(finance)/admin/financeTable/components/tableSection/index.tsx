@@ -9,14 +9,19 @@ import {
   fetchFinanceLog,
 } from "@/features/(finance)/commons/services/financeLog";
 import { FinanceLog } from "@/features/(finance)/commons/types/finance/financeLog";
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { ColumnFinanceReport } from "./ColumnFinance";
 import { DateRange } from "react-day-picker";
 import FilterCollections from "./FilterCollections";
 import { Card, CardContent } from "@/features/commons/components/ui/card";
 import { Skeleton } from "@/features/commons/components/ui/skeleton";
 
-const TableSection = () => {
+interface TableSectionProps {
+  data: FinanceLog[]
+  setData: Dispatch<SetStateAction<FinanceLog[]>>
+}
+
+const TableSection = ({data, setData}: TableSectionProps) => {
   const { user } = useAuth();
 
   const [pageInfo, setPageInfo] = useState<PageInfo>({
@@ -25,7 +30,6 @@ const TableSection = () => {
     count: 0,
     totalPage: 0,
   });
-  const [data, setData] = useState<FinanceLog[]>([]);
 
   // filter
   const [dateRangeFilter, setDateRangeFilter] = useState<DateRange | undefined>(
