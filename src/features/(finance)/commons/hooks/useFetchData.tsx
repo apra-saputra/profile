@@ -10,7 +10,7 @@ interface UseFetchDataProps<T> {
 
 const useFetchData = (
   { setData, fetch }: UseFetchDataProps<any>,
-  dependencies: Array<string | number | boolean> = []
+  dependencies: React.DependencyList = []
 ) => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -33,7 +33,8 @@ const useFetchData = (
       }
     };
 
-    if (user?.id) { // Tetap fetch jika user ada
+    if (user?.id) {
+      // Tetap fetch jika user ada
       fetchData();
     }
   }, [user?.id, ...dependencies]);

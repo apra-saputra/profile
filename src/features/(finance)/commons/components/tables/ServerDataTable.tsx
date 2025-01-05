@@ -35,7 +35,7 @@ export type PageInfo = {
 };
 
 interface DataWithId {
-  id: number;
+  id: number | string;
   [key: string]: any;
 }
 
@@ -80,7 +80,6 @@ function ServerDataTableComponent<TData extends DataWithId, TValue>({
       },
     },
     pageCount: pageInfo.totalPage,
-    
   });
 
   useEffect(() => {
@@ -93,9 +92,9 @@ function ServerDataTableComponent<TData extends DataWithId, TValue>({
 
         // Menggabungkan data baru dengan yang sudah ada tanpa duplikasi
         const updatedSelected = [...prevSelected];
-        data.forEach((item) => {
+        data.forEach((item, index) => {
           if (!updatedSelected.some((selectedItem) => selectedItem === item)) {
-            updatedSelected.push(item);
+            updatedSelected.push(index);
           }
         });
 
@@ -116,27 +115,37 @@ function ServerDataTableComponent<TData extends DataWithId, TValue>({
 
     if (!selectAll && !selected?.length) {
       setRowSelection({});
-      
+
       // setSelected?.([]);
     }
   }, [selectAll, selected?.length, Object.keys(rowSelection).length]);
 
   return (
-    <div className={cn(`rounded-lg w-full border drop-shadow-lg bg-background`, className)}>
-      <Table className="min-w-fit">
+    <div
+      className={cn(
+        `rounded-lg w-full border drop-shadow-lg bg-background overflow-hidden`,
+        className
+      )}
+    >
+      <Table className="overflow-x-auto">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow
+              key={headerGroup.id}
+              className="bg-secondary"
+            >
               {headerGroup.headers.map((header) => {
+                if (header.column.columnDef.enableHiding) {
+                  return null;
+                }
                 return (
                   <TableHead
                     key={header.id}
-                    className={`uppercase border select-none ${
+                    className={`uppercase border text-foreground select-none ${
                       header.column.getCanSort()
                         ? "cursor-pointer"
                         : "cursor-none"
                     }`}
-                    // onClick={header.column.getToggleSortingHandler()}
                   >
                     {header.isPlaceholder
                       ? null
@@ -152,20 +161,26 @@ function ServerDataTableComponent<TData extends DataWithId, TValue>({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <TableCell key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            ))
+            table.getRowModel().rows.map((row) => {
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className="p-0 m-0"
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
@@ -210,8 +225,7 @@ function ServerDataTableComponent<TData extends DataWithId, TValue>({
           </span>
           {!!setSelected && (
             <div className="flex gap-2 items-center">
-              |{" "}
-              <span>total select {selected?.length}</span>
+              | <span>total select {selected?.length}</span>
             </div>
           )}
         </div>

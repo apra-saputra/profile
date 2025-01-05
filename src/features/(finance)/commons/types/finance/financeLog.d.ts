@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase/firestore";
-import { CategoryCredit } from "./category";
+import { CategoryCredit } from "../category";
 
 export interface FinanceLog {
   amount: number;

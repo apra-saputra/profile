@@ -28,9 +28,9 @@ const SelectComponent: FC<SelectComponentProps> = memo(
         <SelectTrigger className={cn(className)}>
           <SelectValue placeholder={placeholder || "Select Value"} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="text-start">
           {options.map((option) => (
-            <SelectItem value={option.value} key={option.value}>
+            <SelectItem value={option.value} key={option.value} >
               {option.name}
             </SelectItem>
           ))}
