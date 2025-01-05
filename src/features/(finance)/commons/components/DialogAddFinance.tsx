@@ -64,7 +64,6 @@ const DialogAddFinance: FC<DialogAddFinanceProps> = ({ isOpen, setIsOpen }) => {
       return typeTransaction.map((el) => ({ value: el.id, name: el.name }));
     return [];
   }, [errorTransaction, loadingTransaction]);
-  // handling Type Transaction options End
 
   const resetState = () => {
     setFormData(initialForm);

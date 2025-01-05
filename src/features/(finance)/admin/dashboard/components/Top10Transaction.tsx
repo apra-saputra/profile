@@ -3,7 +3,7 @@ import { formattedDateFirebase } from "@/features/(finance)/commons/utils/functi
 import { Button } from "@/features/commons/components/ui/button";
 import { Card, CardContent } from "@/features/commons/components/ui/card";
 import { FC, useState } from "react";
-import DialogAddFinance from "./DialogAddFinance";
+import DialogAddFinance from "../../../commons/components/DialogAddFinance";
 import { useAuth } from "@/features/(finance)/commons/contexts/AuthContext";
 import useFetchData from "@/features/(finance)/commons/hooks/useFetchData";
 import { formatCurrency } from "@/features/(finance)/commons/utils/functions/formatCurrency";

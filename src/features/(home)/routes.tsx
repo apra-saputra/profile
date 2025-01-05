@@ -7,7 +7,7 @@ const Home = lazy(() => import("@/features/(home)/home"));
 // const Projects = lazy(() => import("@/features/(home)/projects"));
 const ProjectDetails = lazy(() => import("@/features/(home)/projectDetail"));
 
-const homeRoute: RouteObject = {
+export const homeRoute: RouteObject = {
   path: "/",
   Component: Mainlayout,
   children: [
@@ -22,5 +22,3 @@ const homeRoute: RouteObject = {
     },
   ],
 };
-
-export default homeRoute;

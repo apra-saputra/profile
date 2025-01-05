@@ -40,33 +40,19 @@ export const navigation: NavigationType = {
         url: "/finance/admin/dashboard",
         icon: Trello,
         isActive: true,
-        // items: [
-        //   {
-        //     title: "Main",
-        //     url: "/finance/admin/dashboard",
-        //   },
-        //   // {
-        //   //   title: "Starred",
-        //   //   url: "#",
-        //   // },
-        //   // {
-        //   //   title: "Settings",
-        //   //   url: "#",
-        //   // },
-        // ],
       },
       {
-        title: "Report Finance",
-        url: "", // => /finance/admin/report
+        title: "Transaction",
+        url: "",
         icon: ReceiptText,
         items: [
           {
-            title: "Table",
-            url: "/finance/admin/report",
+            title: "Report",
+            url: "/finance/admin/transaction",
           },
           {
             title: "Create",
-            url: "/finance/admin/report/create",
+            url: "/finance/admin/transaction/create",
           },
         ],
       },

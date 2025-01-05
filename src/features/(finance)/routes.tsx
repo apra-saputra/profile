@@ -16,9 +16,12 @@ const Dashboard = lazy(() => import("@/features/(finance)/admin/dashboard"));
 const FinanceTable = lazy(
   () => import("@/features/(finance)/admin/financeTable")
 );
+const FinanceCreate = lazy(
+  () => import("@/features/(finance)/admin/financeCreate")
+);
 // const Note = lazy(() => import("@/features/(finance)/admin/note"));
 
-const financeRoute: RouteObject = {
+export const financeRoute: RouteObject = {
   path: "/finance",
   element: <FinanceLayout />,
   children: [
@@ -26,7 +29,7 @@ const financeRoute: RouteObject = {
       path: "",
       element: <FinanceHome />,
     },
-    { path: "sign-in", element: <SignInPage />, loader: hasSignIn, },
+    { path: "sign-in", element: <SignInPage />, loader: hasSignIn },
     // { path: "sign-up", loader: protectedRouteLoader, element: <SignUpPage /> },
     {
       path: "admin",
@@ -41,12 +44,14 @@ const financeRoute: RouteObject = {
           element: <Dashboard />,
         },
         {
-          path: "report",
+          path: "transaction",
           element: <FinanceTable />,
-        },
-        {
-          path: "report/create",
-          element: <ComingSoonPage />,
+          children: [
+            {
+              path: "create",
+              element: <FinanceCreate />,
+            },
+          ],
         },
         {
           path: "note",
@@ -60,5 +65,3 @@ const financeRoute: RouteObject = {
     },
   ],
 };
-
-export default financeRoute;

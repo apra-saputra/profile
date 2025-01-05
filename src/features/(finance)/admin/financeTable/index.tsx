@@ -4,6 +4,7 @@ import { Download } from "lucide-react";
 import { useState } from "react";
 import { FinanceLog } from "../../commons/types/finance/financeLog";
 import { downloadCsv, jsonToCsv } from "../../commons/services/download";
+import { Outlet } from "react-router-dom";
 
 export default () => {
   const [data, setData] = useState<FinanceLog[]>([]);
@@ -24,6 +25,8 @@ export default () => {
       </div>
       {/* <TableExample /> */}
       <TableSection data={data} setData={setData} />
+
+      <Outlet />
     </section>
   );
 };
