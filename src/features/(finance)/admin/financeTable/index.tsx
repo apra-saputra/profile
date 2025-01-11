@@ -16,7 +16,7 @@ export default () => {
 
   return (
     <section className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-col md:flex-row">
         <h1>Transaction Report</h1>
         <Button onClick={handleDownload}>
           <Download />

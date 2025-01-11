@@ -10,7 +10,7 @@ import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import NavHeader from "./NavHeader";
 import { navigation } from "../../utils/constants/AdminMenu";
-import FooterScrollUp from "./FooterScrollUp";
+import ButtonCollection from "./ButtonCollection";
 
 export const SidebarApp = ({ ...props }) => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -27,7 +27,8 @@ export const SidebarApp = ({ ...props }) => {
         <NavMain items={navigation.nav} />
       </SidebarContent>
       <SidebarFooter>
-        <FooterScrollUp />
+        <ButtonCollection />
+
         <NavUser
           user={{
             name: user?.displayName || "",

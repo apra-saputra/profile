@@ -31,19 +31,21 @@ const FinanceNavbar = () => {
   return (
     <header className="flex flex-col shrink-0 items-start gap-2 transition-[width,height] ease-linear">
       {/* Sticky Navbar */}
-      <nav className="w-full flex justify-between items-center px-4 py-4 overflow-hidden bg-accent ">
+      <nav className="w-full flex justify-between items-center md:px-4 px-2 py-4 overflow-hidden bg-accent">
         <Link to={"/finance"}>
           <h1>Logo</h1>
         </Link>
         <div className="space-x-2 flex items-center">
           <MenuNavbar user={user} logoutFn={logout} />
-          <ChangeThemeButton />
+          <ChangeThemeButton className="hidden md:block" />
+
+          <SidebarTrigger className="-ml-1 md:hidden" variant={"default"} />
         </div>
       </nav>
 
       {/* Scrollable Breadcrumb */}
       {isAuthenticated && (
-        <div className="flex items-center gap-2 px-4">
+        <div className="flex items-center gap-2 px-4 md:block hidden">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>

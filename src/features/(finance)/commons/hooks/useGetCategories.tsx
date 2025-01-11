@@ -14,7 +14,7 @@ export const useGetCategories = () => {
         const data = await fetchCategories();
         setCategories(data);
       } catch (err: any) {
-        setError(err.message || "Failed to load categories");
+        setError(err);
       } finally {
         setLoading(false);
       }

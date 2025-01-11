@@ -1,13 +1,22 @@
 import { Button } from "@/features/commons/components/ui/button";
 import { useTheme } from "@/features/commons/contexts/ThemeContext";
-import { memo } from "react";
+import { cn } from "@/libs/utils";
+import { FC, memo } from "react";
 import { FaRegMoon } from "react-icons/fa6";
 import { GoSun } from "react-icons/go";
 
-const ChangeThemeButton = memo(() => {
+interface ChangeThemeButtonProps {
+  className?: string;
+}
+
+const ChangeThemeButton: FC<ChangeThemeButtonProps> = memo(({ className }) => {
   const { theme, toggleTheme } = useTheme();
   return (
-    <Button onClick={() => toggleTheme()} variant={"default"} className="border-foreground">
+    <Button
+      onClick={() => toggleTheme()}
+      variant={"default"}
+      className={cn("border-foreground", className)}
+    >
       {theme === "light" ? <GoSun /> : <FaRegMoon />}
     </Button>
   );

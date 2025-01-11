@@ -9,54 +9,39 @@
 import { Link } from "react-router-dom";
 import { FC, memo } from "react";
 import { UserDisplay } from "../../types/user";
+import { cn } from "@/libs/utils";
+import { useIsMobile } from "@/features/commons/hooks/use-mobile";
 
 interface MenuNavbarProps {
   user?: UserDisplay;
   logoutFn: () => void;
+  className?: string;
 }
 
-const MenuNavbar: FC<MenuNavbarProps> = memo(({ user }) => {
+const MenuNavbar: FC<MenuNavbarProps> = memo(({ user, className }) => {
+  const isMobile = useIsMobile();
+
+  const userName = user
+    ? isMobile
+      ? user.displayName.split(" ")[0]
+      : user.displayName
+    : "User";
+
   return (
-    <>
+    <div
+      className={cn(
+        "px-4 py-2 border border-white rounded-lg text-white select-none hidden md:block",
+        className
+      )}
+    >
       {user ? (
-        <div className="px-4 py-2 border border-white rounded-lg text-white select-none">
-          <span>Hello {user.displayName}</span>
-        </div>
+        <span>Hello {userName}</span>
       ) : (
         <Link to={"/finance/sign-in"}>
           <p>Sign in</p>
         </Link>
       )}
-    </>
-
-    // <DropdownMenu>
-    //   <DropdownMenuTrigger className="p-0 m-0">
-    //     <Button>{user ? user.displayName : <h4>User</h4>}</Button>
-    //   </DropdownMenuTrigger>
-    //   <DropdownMenuContent className="w-screen md:w-full">
-    //     <DropdownMenuLabel className="text-center">
-    //       {user ? user.displayName : <h4>User</h4>}
-    //     </DropdownMenuLabel>
-    //     {user ? (
-    //       <DropdownMenuItem onClick={logoutFn}>Logout</DropdownMenuItem>
-    //     ) : (
-    //       <>
-    //         <DropdownMenuItem>
-    //           <Link to={"/finance/sign-in"}>
-    //             <p>Sign in</p>
-    //           </Link>
-    //         </DropdownMenuItem>
-    //         {/* <DropdownMenuItem>
-    //           <Link to={"/finance/sign-up"}>
-    //             <p>Sign up</p>
-    //           </Link>
-    //         </DropdownMenuItem> */}
-    //       </>
-    //     )}
-
-    //     <DropdownMenuSeparator />
-    //   </DropdownMenuContent>
-    // </DropdownMenu>
+    </div>
   );
 });
 
