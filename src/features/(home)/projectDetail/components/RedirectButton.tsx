@@ -3,15 +3,17 @@ import { FC, memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface RedirectButtonProps {
-  data?: { [t: string]: string };
+  data?: { [t: string]: string | number };
 }
 
 const RedirectButton: FC<RedirectButtonProps> = memo(({ data }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = (path: string) => {
-    if (path.includes("http")) {
+  const handleNavigate = (path: string | number) => {
+    if (typeof path === "string" && path.includes("http")) {
       window.open(path, "blank");
+    } else if (typeof path === "number") {
+      navigate(path);
     } else {
       navigate(path);
     }

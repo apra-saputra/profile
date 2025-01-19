@@ -154,6 +154,7 @@
     background-image: url("../assets/background-doodle.png");
     background-repeat: round;
     background-position: center;
+    background-attachment: fixed;
     object-fit: cover;
   }
 
@@ -230,14 +231,6 @@
     -moz-background-clip: text;
     background-clip: text;
     color: transparent;
-  }
-}
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 
   input::-webkit-outer-spin-button,

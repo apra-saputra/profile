@@ -21,7 +21,7 @@ const FinanceCreate = lazy(
 );
 // const Note = lazy(() => import("@/features/(finance)/admin/note"));
 
-export const financeRoute: RouteObject = {
+const financeRoute: RouteObject = {
   path: "/finance",
   element: <FinanceLayout />,
   children: [
@@ -65,3 +65,5 @@ export const financeRoute: RouteObject = {
     },
   ],
 };
+
+export default financeRoute
