@@ -13,6 +13,7 @@ import { SidebarApp } from "./commons/components/sidebar/SidebarApp";
 
 const FinanceLayout = () => {
   useDocumentTitle("Finance | Admin");
+
   return (
     <AuthProvider>
       <SidebarProvider>

@@ -3,7 +3,6 @@ import ChangeThemeButton from "./ChangeThemeButton";
 import MenuNavbar from "./MenuNavbar";
 import { useAuth } from "../../contexts/AuthContext";
 import { SidebarTrigger } from "@/features/commons/components/ui/sidebar";
-import { Separator } from "@radix-ui/react-separator";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -45,9 +44,8 @@ const FinanceNavbar = () => {
 
       {/* Scrollable Breadcrumb */}
       {isAuthenticated && (
-        <div className="flex items-center gap-2 px-4 md:block hidden">
+        <div className="flex-row justify-start items-center gap-2 px-4 md:flex hidden w-full">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
               {pathSegments.map((segment, index) => (

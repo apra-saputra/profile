@@ -16,7 +16,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
+const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const getInitialTheme = (): Theme => {
     // Check localStorage
     const storedTheme = localStorage.getItem("theme");
@@ -30,7 +30,7 @@ export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return systemPrefersDark ? "dark" : "light";
   };
 
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const [theme, setTheme] = useState<Theme>(getInitialTheme());
 
   const toggleTheme = () => {
     setTheme((prevTheme) => {
@@ -66,10 +66,12 @@ export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const useTheme = () => {
+const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 };
+
+export { useTheme, ThemeProvider };
