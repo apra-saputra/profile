@@ -29,8 +29,19 @@ const Projects = () => {
             </Link>
 
             <div className="px-2 text-center">
-              <h4 className="font-bold capitalize">{project.title}</h4>
-              <p className="line-clamp-3">{project.description.en}</p>
+              <h4 className="font-bold capitalize mb-3">{project.title}</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.tags?.length &&
+                  project.tags.map((tag, idx) => (
+                    <div
+                      className="px-2 py-1 rounded-2xl bg-secondary flex items-center text-wrap"
+                      key={`${tag}-${idx}`}
+                    >
+                      <span className="text-sm">{tag}</span>
+                    </div>
+                  ))}
+              </div>
+              {/* <p className="line-clamp-3">{project.description.en}</p> */}
             </div>
           </CarouselItemComponent>
         ))}

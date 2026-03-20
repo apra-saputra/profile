@@ -1,7 +1,7 @@
 import javascript from "@/assets/logos/javascript.png";
 import ts from "@/assets/logos/typescript.png";
 import nodejs from "@/assets/logos/nodejs.png";
-import nestjs from '@/assets/logos/nestjs.png'
+import nestjs from "@/assets/logos/nestjs.png";
 import html from "@/assets/logos/html.png";
 import css from "@/assets/logos/css.png";
 import react from "@/assets/logos/react.png";
@@ -21,7 +21,8 @@ import postgresql from "@/assets/logos/postgresql.png";
 import mongodb from "@/assets/logos/mongodb.png";
 import go from "@/assets/logos/go.png";
 import gin from "@/assets/logos/gin-gonic.png";
-import openai from '@/assets/logos/openai.png'
+import openai from "@/assets/logos/openai.png";
+import gemini from "@/assets/logos/gemini.png";
 
 export const programings = [
   {
@@ -122,5 +123,9 @@ export const techstacks = [
   {
     title: "openai",
     logo: openai,
+  },
+  {
+    title: "gemini",
+    logo: gemini,
   },
 ];
