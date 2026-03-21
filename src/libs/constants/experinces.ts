@@ -1,0 +1,68 @@
+export const experiences = [
+  {
+    period: "2023 — Present",
+    title: "Front End Developer | Back End Developer",
+    company: "Full Time Contract",
+        description:
+      "Developed and maintained web and mobile applications, handling both front-end and back-end tasks. Engineered and deployed a scalable AI-powered feature, enhancing application intelligence and user engagement.",
+    technologies: [
+      "React",
+      "React Native",
+      "Node.js",
+      "Nest js",
+      "Laravel",
+      "Gin",
+      "Redis",
+      "SqLite",
+      "MySql",
+      "PostgreSQL",
+      "MongoDb",
+      "Vector DB",
+      "Firebase",
+      "Openai",
+      "Gemini",
+      "Javascript",
+      "TypeScript",
+      "Python",
+      "Go",
+    ],
+    link: null,
+  },
+  {
+    period: "2016 — Present",
+    title: "Full Stack Developer",
+    company: "Freelance",
+        description:
+      "Delivered full-stack applications for a diverse client base, creating end-to-end solutions with modern technologies and providing comprehensive IT support.",
+    technologies: [],
+    link: null,
+  },
+  {
+    period: "2022",
+    title: "Graduated Full Stack Developer",
+    company: "Hacktiv8",
+        description:
+      "Graduated from an intensive Full Stack JavaScript bootcamp, gaining hands-on experience building a variety of applications, including e-commerce platforms, CMS, and real-time solutions.",
+    technologies: [
+      "JavaScript",
+      "React",
+      "React Native",
+      "Vue.js",
+      "Express",
+      "Redis",
+      "MongoDB",
+      "PostgreSQL",
+    ],
+    link: "https://drive.google.com/file/d/1ZyWhv4TbtBNPcHKwaX0mMUoinIuGqOgy/view",
+  },
+  {
+    period: "2016 - 2021",
+    title: "Graduated Information Engineering",
+    company: "IIB DARMAJAYA BANDAR LAMPUNG",
+    description:
+      "Acquired a comprehensive foundation in software development principles, database management, and network systems.",
+    technologies: [],
+    // link: "https://drive.google.com/file/d/1-SeLHT-tYDr4Y0aFuG7QyQMozsdt4d5X/view",
+    link: null,
+  },
+];

@@ -78,7 +78,8 @@ export function Navigation() {
           </ul>
 
           <a
-            href="mailto:apra.saputra@gmail.com"
+            // href="mailto:apra.saputra@gmail.com"
+            href="#contact"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             Contact

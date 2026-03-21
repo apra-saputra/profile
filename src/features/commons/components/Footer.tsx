@@ -12,7 +12,7 @@ const Footer: React.FC<FooterProps> = () => {
       <div className="h-fit max-w-screen-2xl flex flex-wrap flex-col md:flex-row items-center md:justify-between justify-center mx-auto py-10 px-10 gap-4 md:gap-0">
         <div>
           <span>
-            <strong>copyright </strong>©2024 | Power by React
+            <strong>©2026</strong>
           </span>
         </div>
         <div className="flex flex-col items-center gap-4" id="contact">
@@ -32,7 +32,7 @@ const Footer: React.FC<FooterProps> = () => {
                     alt="logo"
                     className={``}
                   /> */}
-                  {<item.logo size={'1rem'}/>}
+                  {<item.logo size={"1rem"} />}
                   <span className="text-md font-semibold">{item.name}</span>
                 </li>
               );

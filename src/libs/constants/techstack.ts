@@ -117,7 +117,7 @@ export const techstacks = [
     logo: postgresql,
   },
   {
-    title: "mongo BD",
+    title: "mongo DB",
     logo: mongodb,
   },
   {
@@ -133,7 +133,7 @@ export const techstacks = [
 export const techCategories = [
   {
     title: "Languages",
-    technologies: ["JavaScript", "TypeScript", "Go", "Python","HTML", "CSS"],
+    technologies: ["JavaScript", "TypeScript", "Go", "Python", "HTML", "CSS"],
   },
   {
     title: "Frontend",
@@ -143,27 +143,46 @@ export const techCategories = [
       "Next.js",
       "Vue.js",
       "Redux",
+      "Zustand",
       "React Query",
+      "Apollo Client",
+      "Tailwind",
+      "shadcn/ui",
+      "Bootstrap",
     ],
   },
   {
     title: "Backend",
-    technologies: ["Node.js", "Nest.js", "Gin", "Express"],
+    technologies: ["Node.js", "Nest.js", "Gin", "Laravel Lumen"],
   },
   {
     title: "Database & Tools",
-    technologies: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Vector Db"],
+    technologies: [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Firebase Firestore",
+      "Redis",
+      "Vector Db",
+    ],
   },
   {
     title: "APIs & Services",
-    technologies: ["GraphQL", "Apollo Client", "Socket.io", "REST API", "JWT"],
+    technologies: [
+      "GraphQL",
+      "Socket.io",
+      "REST API",
+      "Queue",
+      "Micro Services",
+      "Message Broker",
+    ],
   },
   {
     title: "Testing & DevOps",
-    technologies: ["Jest", "Docker", "Git", "CI/CD", 'Google Cloud Instance'],
+    technologies: ["Jest", "Docker", "Git", "CI/CD", "Google Cloud", 'PM2'],
   },
   {
     title: "AI & Others",
-    technologies: ["OpenAI", "Gemini", "Figma", "shadcn/ui"],
+    technologies: ["OpenAI", "Gemini", "Langchain", "RAG"],
   },
 ];

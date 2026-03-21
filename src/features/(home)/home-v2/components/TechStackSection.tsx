@@ -3,7 +3,7 @@ import { techCategories } from "@/libs/constants/techstack";
 export function TechStackSection() {
   return (
     <section id="tech-stack" className="px-6 md:px-12 lg:px-24 pt-32 pb-64">
-      <div className="max-w-5xl">
+      <div className="bg-muted/80 py-4 px-6 rounded-xl shadow-md">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-12">
           Tech Stack
         </h2>

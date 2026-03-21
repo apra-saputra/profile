@@ -8,7 +8,7 @@ const Home = lazy(() => import("@/features/(home)/home"));
 const ProjectDetails = lazy(() => import("@/features/(home)/projectDetail"));
 
 const homeRoute: RouteObject = {
-  path: "/",
+  path: "/v2",
   Component: Mainlayout,
   children: [
     {
@@ -16,7 +16,7 @@ const homeRoute: RouteObject = {
       element: <Home />,
     },
     {
-      path: "/projects/:id",
+      path: "projects/:id",
       // element: <ComingSoonPage />,
       element: <ProjectDetails />,
     },

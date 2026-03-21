@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
   homeRoute,
   financeRoute,
   {
-    path: "/v2",
+    path: "/",
     children: [
       {
         path: "",

@@ -6,14 +6,17 @@ import { ExperienceSection } from "./components/ExperienceSection";
 import Footer from "@/features/commons/components/Footer";
 import ButtonChangeTheme from "@/features/commons/components/ButtonChangeTheme";
 import TechStackCarousel from "./components/TechStackCarousel";
+import IntroAnimation from "@/features/commons/components/IntroAnimation";
 
 const HomeV2 = () => {
   return (
-    <main className="min-h-screen relative h-full">
+    <main className="min-h-screen relative h-full select-none">
       <Navigation />
 
       <div className="max-w-7xl mx-auto">
-        <HeroSection />
+        <IntroAnimation>
+          <HeroSection />
+        </IntroAnimation>
       </div>
       <div className="py-6">
         <TechStackCarousel />
@@ -23,8 +26,8 @@ const HomeV2 = () => {
         <ProjectsSection />
         <TechStackSection />
       </div>
-      <Footer />
 
+      <Footer />
       <div className="fixed bottom-4 left-4">
         <ButtonChangeTheme />
       </div>
