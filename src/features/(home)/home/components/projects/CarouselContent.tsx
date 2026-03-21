@@ -1,5 +1,5 @@
+import { Project } from "@/libs/constants/project";
 import React, { memo } from "react";
-import { Project } from "../../utils/project";
 
 interface CarauselContentProps {
   project: Project;
@@ -7,8 +7,8 @@ interface CarauselContentProps {
 
 const CarauselContent: React.FC<CarauselContentProps> = memo(({ project }) => {
   return (
-    <div className="w-full h-full relative rounded-xl overflow-hidden rounded-xl">
-      <div className="w-full w-5/6 relative h-full">
+    <div className="w-full h-full relative rounded-xl overflow-hidden">
+      <div className="w-5/6 relative h-full">
         <img
           src={project.image}
           alt="Banner"

@@ -10,7 +10,7 @@ import { Parallax } from "react-scroll-parallax";
 
 const Paralax = () => {
   return (
-    <div className="w-full h-[100dvh] flex items-end text-center hidden md:block">
+    <div className="w-full h-[100dvh] flex items-end text-center md:block">
       <Parallax
         scale={[0, 5, "easeInOut"]}
         // translateY={[100, 10, "easeInOut"]}

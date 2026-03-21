@@ -1,6 +1,6 @@
 import NotFound from "@/features/NotFound";
 import { useParams } from "react-router-dom";
-import { Project, projects } from "../home/utils/project";
+import { Project, projects } from "@/libs/constants/project";
 import { useMemo, useState } from "react";
 import { deobfuscateId } from "@/features/commons/utils/functions/hashing";
 import { motion } from "framer-motion";
