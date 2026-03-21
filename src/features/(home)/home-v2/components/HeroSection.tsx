@@ -1,6 +1,6 @@
 import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.png";
+import logo from "../../../../assets/Logo.png";
 
 export function HeroSection() {
   return (
