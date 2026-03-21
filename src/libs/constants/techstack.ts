@@ -129,3 +129,41 @@ export const techstacks = [
     logo: gemini,
   },
 ];
+
+export const techCategories = [
+  {
+    title: "Languages",
+    technologies: ["JavaScript", "TypeScript", "Go", "Python","HTML", "CSS"],
+  },
+  {
+    title: "Frontend",
+    technologies: [
+      "React",
+      "React Native",
+      "Next.js",
+      "Vue.js",
+      "Redux",
+      "React Query",
+    ],
+  },
+  {
+    title: "Backend",
+    technologies: ["Node.js", "Nest.js", "Gin", "Express"],
+  },
+  {
+    title: "Database & Tools",
+    technologies: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Vector Db"],
+  },
+  {
+    title: "APIs & Services",
+    technologies: ["GraphQL", "Apollo Client", "Socket.io", "REST API", "JWT"],
+  },
+  {
+    title: "Testing & DevOps",
+    technologies: ["Jest", "Docker", "Git", "CI/CD", 'Google Cloud Instance'],
+  },
+  {
+    title: "AI & Others",
+    technologies: ["OpenAI", "Gemini", "Figma", "shadcn/ui"],
+  },
+];

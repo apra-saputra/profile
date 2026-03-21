@@ -1,10 +1,11 @@
-import { projects } from "@/features/(home)/home/utils/project";
+
 import {
   CarouselComponent,
   CarouselItemComponent,
 } from "../../commons/components/carousel/CarouselComponent";
 import { Link } from "react-router-dom";
 import { obfuscateId } from "@/features/commons/utils/functions/hashing";
+import { projects } from "@/libs/constants/project";
 
 const Projects = () => {
   return (

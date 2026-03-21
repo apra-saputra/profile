@@ -1,6 +1,6 @@
 import React from "react";
-import { programings, techstacks } from "./utils/techstack";
 import IntroAnimation from "./components/IntroAnimation";
+import { programings, techstacks } from "@/libs/constants/techstack";
 
 const Techstacks = () => {
   return (
